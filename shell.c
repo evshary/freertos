@@ -1,3 +1,4 @@
+#include <stdarg.h>
 #include "fio.h"
 
 #define MAX_COMMAND_LEN 30
@@ -99,6 +100,73 @@ void read_string(char *command){
 
 }
 
+void itoa(int num, char *num_to_str){
+	int digit = 0;
+	int tmp_num = num;
+	int i;
+	while(tmp_num != 0){
+		digit++;
+		tmp_num /= 10;
+	}
+	tmp_num = num;
+	num_to_str[digit] = '\0';
+	for(i = 1; i <= digit; i++){
+		num_to_str[digit-i] = "0123456789"[tmp_num%10];
+		tmp_num /= 10;
+	}
+}
+
+void my_printf(const char *format, ...){
+	va_list argv_list;
+	char *ptr_char;
+	char print_ch;
+	char buf[32];
+	va_start(argv_list, format);
+	print_ch = *format;
+	typedef union {
+		char arg_char;
+		int arg_int;
+		char *arg_string;
+	} argvs;
+	argvs args;
+	while(print_ch != '\0'){
+		if(print_ch == '%'){
+			format++;
+			print_ch = *format;
+			switch(print_ch){
+				case 'c':
+					args.arg_int = va_arg(argv_list, int);
+					buf[0] = (char)args.arg_int;
+					buf[1] = '\0';
+					print(buf);
+					break;
+				case 'd':
+					args.arg_int = va_arg(argv_list, int);
+					itoa(args.arg_int, buf);
+					print(buf);
+					break;
+				case 's':
+					args.arg_string = va_arg(argv_list, char*);
+					print(args.arg_string);
+					break;
+				default:
+					buf[0] = print_ch;
+					buf[1] ='\0';
+					print(buf);
+			}
+		}else{
+			buf[0] = print_ch;
+			buf[1] ='\0';
+			print(buf);
+		}
+
+		format++;
+		print_ch = *format;
+	}
+
+	va_end(argv_list);
+}
+
 void help_func(){
 	int i;
 	print("This shell supports the commands following:\n");
@@ -115,7 +183,7 @@ void hello_func(){
 }
 
 void ps_func(){
-	print("ps:\n");
+	my_printf("ps:%d %c %s\n", 23, 'a', "abc123");
 }
 
 void system_func(){
