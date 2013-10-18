@@ -3,6 +3,11 @@
 #define MAX_COMMAND_LEN 30
 #define BACKSPACE 0x7f
 
+void hello_func();
+void help_func();
+void ps_func();
+void system_func();
+
 extern char receive_byte();
 
 enum {
@@ -14,9 +19,33 @@ enum {
 };
 
 typedef struct{
-	char* name;
+	char *name;
+	char *description;
 	void (*function)(void);
 } shell_cmd;
+
+shell_cmd commands[] = {
+	{
+		.name = "ps",
+		.description = "show the process now",
+		.function = ps_func
+	},
+	{
+		.name = "help",
+		.description = "show the introduction to the commands",
+		.function = help_func
+	},
+	{
+		.name = "hello",
+		.description = "saying hello",
+		.function = hello_func
+	},
+	{
+		.name = "system",
+		.description = "execute the host command",
+		.function = system_func
+	}
+};
 
 int strlen(char *string){
 	int len = 0;
@@ -71,7 +100,14 @@ void read_string(char *command){
 }
 
 void help_func(){
-	print("What can I help you?\n");
+	int i;
+	print("This shell supports the commands following:\n");
+	for(i = 0; i < MAX_COMMANDS; i++){
+		print(commands[i].name);
+		print(": ");
+		print(commands[i].description);
+		print("\n");
+	}
 }
 
 void hello_func(){
@@ -92,25 +128,6 @@ void system_func(){
 	//};
 	//host_call(0x12, func_param);
 }
-
-shell_cmd commands[] = {
-	{
-		.name = "ps",
-		.function = ps_func
-	},
-	{
-		.name = "help",
-		.function = help_func
-	},
-	{
-		.name = "hello",
-		.function = hello_func
-	},
-	{
-		.name = "system",
-		.function = system_func
-	}
-};
 
 void user_shell(){
 	char command[MAX_COMMAND_LEN];
