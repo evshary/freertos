@@ -12,6 +12,9 @@
 #include "filesystem.h"
 #include "fio.h"
 
+/*Shell includes*/
+#include "shell.h"
+
 extern const char _sromfs;
 
 static void setup_hardware();
@@ -63,6 +66,10 @@ void send_byte(char ch)
 	USART_ITConfig(USART2, USART_IT_TXE, ENABLE);
 }
 
+void receive_byte(char *rec_char){
+	rec_char = USART_ReceiveData(USART2);
+}
+
 void read_romfs_task(void *pvParameters)
 {
 	char buf[128];
@@ -95,8 +102,12 @@ int main()
 	vSemaphoreCreateBinary(serial_tx_wait_sem);
 
 	/* Create a task to output text read from romfs. */
-	xTaskCreate(read_romfs_task,
-	            (signed portCHAR *) "Read romfs",
+//	xTaskCreate(read_romfs_task,
+//	            (signed portCHAR *) "Read romfs",
+//	            512 /* stack size */, NULL, tskIDLE_PRIORITY + 2, NULL);
+				
+	xTaskCreate(user_shell,
+	            (signed portCHAR *) "User Shell",
 	            512 /* stack size */, NULL, tskIDLE_PRIORITY + 2, NULL);
 
 	/* Start running the tasks. */

@@ -5,21 +5,21 @@ main.elf:     file format elf32-littlearm
 Disassembly of section .text:
 
 00000000 <g_pfnVectors>:
-       0:	00 50 00 20 e1 5e 00 00 2d 5f 00 00 2d 5f 00 00     .P. .^..-_..-_..
-      10:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 00 00 00 00     -_..-_..-_......
+       0:	00 50 00 20 45 5f 00 00 91 5f 00 00 91 5f 00 00     .P. E_..._..._..
+      10:	91 5f 00 00 91 5f 00 00 91 5f 00 00 00 00 00 00     ._..._..._......
 	...
-      2c:	a9 49 00 00 2d 5f 00 00 00 00 00 00 b5 4a 00 00     .I..-_.......J..
-      3c:	f1 4a 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     .J..-_..-_..-_..
-      4c:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
-      5c:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
-      6c:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
-      7c:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
-      8c:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
-      9c:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
-      ac:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
-      bc:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
-      cc:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 05 5d 00 00     -_..-_..-_...]..
-      dc:	2d 5f 00 00 2d 5f 00 00 2d 5f 00 00 2d 5f 00 00     -_..-_..-_..-_..
+      2c:	a9 49 00 00 91 5f 00 00 00 00 00 00 b5 4a 00 00     .I..._.......J..
+      3c:	f1 4a 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     .J..._..._..._..
+      4c:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
+      5c:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
+      6c:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
+      7c:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
+      8c:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
+      9c:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
+      ac:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
+      bc:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
+      cc:	91 5f 00 00 91 5f 00 00 91 5f 00 00 49 5d 00 00     ._..._..._..I]..
+      dc:	91 5f 00 00 91 5f 00 00 91 5f 00 00 91 5f 00 00     ._..._..._..._..
 	...
      108:	5f f8 08 f1                                         _...
 
@@ -1086,7 +1086,7 @@ static void SetSysClockTo72(void)
      73a:	bc80      	pop	{r7}
      73c:	4770      	bx	lr
      73e:	bf00      	nop
-     740:	0000644b 	.word	0x0000644b
+     740:	000064bb 	.word	0x000064bb
      744:	20000000 	.word	0x20000000
      748:	20000030 	.word	0x20000030
      74c:	20000038 	.word	0x20000038
@@ -10560,7 +10560,7 @@ void vTaskStartScheduler( void )
     3da8:	9303      	str	r3, [sp, #12]
     3daa:	f244 40cd 	movw	r0, #17613	; 0x44cd
     3dae:	f2c0 0000 	movt	r0, #0
-    3db2:	f645 7130 	movw	r1, #24368	; 0x5f30
+    3db2:	f645 7194 	movw	r1, #24468	; 0x5f94
     3db6:	f2c0 0100 	movt	r1, #0
     3dba:	f04f 0280 	mov.w	r2, #128	; 0x80
     3dbe:	f04f 0300 	mov.w	r3, #0
@@ -11150,7 +11150,7 @@ tskTCB * pxTCB;
 		#if ( configUSE_TICK_HOOK == 1 )
 		{
 			vApplicationTickHook();
-    41be:	f001 fe89 	bl	5ed4 <vApplicationTickHook>
+    41be:	f001 febb 	bl	5f38 <vApplicationTickHook>
 
 	#if ( configUSE_TICK_HOOK == 1 )
 	{
@@ -11164,7 +11164,7 @@ tskTCB * pxTCB;
     41ce:	d101      	bne.n	41d4 <vTaskIncrementTick+0x1c4>
 		{
 			vApplicationTickHook();
-    41d0:	f001 fe80 	bl	5ed4 <vApplicationTickHook>
+    41d0:	f001 feb2 	bl	5f38 <vApplicationTickHook>
 		}
 	}
 	#endif
@@ -13652,7 +13652,7 @@ int register_fs(const char * mountpoint, fs_open_t callback, void * opaque) {
     515e:	607a      	str	r2, [r7, #4]
     int i;
     DBGOUT("register_fs(\"%s\", %p, %p)\r\n", mountpoint, callback, opaque);
-    5160:	f645 703c 	movw	r0, #24380	; 0x5f3c
+    5160:	f645 70a0 	movw	r0, #24480	; 0x5fa0
     5164:	f2c0 0000 	movt	r0, #0
     5168:	68f9      	ldr	r1, [r7, #12]
     516a:	68ba      	ldr	r2, [r7, #8]
@@ -13916,7 +13916,7 @@ static ssize_t stdout_write(void * opaque, const void * buf, size_t count) {
     5338:	18d3      	adds	r3, r2, r3
     533a:	781b      	ldrb	r3, [r3, #0]
     533c:	4618      	mov	r0, r3
-    533e:	f000 fd15 	bl	5d6c <send_byte>
+    533e:	f000 fd37 	bl	5db0 <send_byte>
 
 static ssize_t stdout_write(void * opaque, const void * buf, size_t count) {
     int i;
@@ -14811,11 +14811,11 @@ void register_devfs() {
     5a5c:	b580      	push	{r7, lr}
     5a5e:	af00      	add	r7, sp, #0
     DBGOUT("Registering devfs.\r\n");
-    5a60:	f645 7058 	movw	r0, #24408	; 0x5f58
+    5a60:	f645 70bc 	movw	r0, #24508	; 0x5fbc
     5a64:	f2c0 0000 	movt	r0, #0
     5a68:	f000 f80e 	bl	5a88 <osDbgPrintf>
     register_fs("dev", devfs_open, NULL);
-    5a6c:	f645 7070 	movw	r0, #24432	; 0x5f70
+    5a6c:	f645 70d4 	movw	r0, #24532	; 0x5fd4
     5a70:	f2c0 0000 	movt	r0, #0
     5a74:	f645 1199 	movw	r1, #22937	; 0x5999
     5a78:	f2c0 0100 	movt	r1, #0
@@ -15194,709 +15194,782 @@ char *strncpy(char *dest, const char *src, size_t n)
     5d00:	4770      	bx	lr
     5d02:	bf00      	nop
 
-00005d04 <USART2_IRQHandler>:
+00005d04 <read_string>:
+
+#define MAX_COMMAND_LEN 1024
+
+extern void receive_byte(char *);
+
+void read_string(char *command){
+    5d04:	b580      	push	{r7, lr}
+    5d06:	b084      	sub	sp, #16
+    5d08:	af00      	add	r7, sp, #0
+    5d0a:	6078      	str	r0, [r7, #4]
+	char echo_ch[2] = {0};
+    5d0c:	f04f 0300 	mov.w	r3, #0
+    5d10:	81bb      	strh	r3, [r7, #12]
+	while(1){
+		receive_byte(echo_ch);
+    5d12:	f107 030c 	add.w	r3, r7, #12
+    5d16:	4618      	mov	r0, r3
+    5d18:	f000 f878 	bl	5e0c <receive_byte>
+		
+	}
+    5d1c:	e7f9      	b.n	5d12 <read_string+0xe>
+    5d1e:	bf00      	nop
+
+00005d20 <user_shell>:
+}
+
+void user_shell(){
+    5d20:	b580      	push	{r7, lr}
+    5d22:	f5ad 6d80 	sub.w	sp, sp, #1024	; 0x400
+    5d26:	af00      	add	r7, sp, #0
+	char command[MAX_COMMAND_LEN];
+	while(1){
+		read_string(command);
+    5d28:	463b      	mov	r3, r7
+    5d2a:	4618      	mov	r0, r3
+    5d2c:	f7ff ffea 	bl	5d04 <read_string>
+		fio_write(1, "evshary->", 10);	
+    5d30:	f04f 0001 	mov.w	r0, #1
+    5d34:	f645 71d8 	movw	r1, #24536	; 0x5fd8
+    5d38:	f2c0 0100 	movt	r1, #0
+    5d3c:	f04f 020a 	mov.w	r2, #10
+    5d40:	f7ff fcea 	bl	5718 <fio_write>
+	}
+    5d44:	e7f0      	b.n	5d28 <user_shell+0x8>
+    5d46:	bf00      	nop
+
+00005d48 <USART2_IRQHandler>:
 
 
 /* IRQ handler to handle USART2 interruptss (both transmit and receive
  * interrupts). */
 void USART2_IRQHandler()
 {
-    5d04:	b580      	push	{r7, lr}
-    5d06:	af00      	add	r7, sp, #0
+    5d48:	b580      	push	{r7, lr}
+    5d4a:	af00      	add	r7, sp, #0
 	static signed portBASE_TYPE xHigherPriorityTaskWoken;
 
 	/* If this interrupt is for a transmit... */
 	if (USART_GetITStatus(USART2, USART_IT_TXE) != RESET) {
-    5d08:	f44f 4088 	mov.w	r0, #17408	; 0x4400
-    5d0c:	f2c4 0000 	movt	r0, #16384	; 0x4000
-    5d10:	f240 7127 	movw	r1, #1831	; 0x727
-    5d14:	f7fc f9f0 	bl	20f8 <USART_GetITStatus>
-    5d18:	4603      	mov	r3, r0
-    5d1a:	2b00      	cmp	r3, #0
-    5d1c:	d021      	beq.n	5d62 <USART2_IRQHandler+0x5e>
+    5d4c:	f44f 4088 	mov.w	r0, #17408	; 0x4400
+    5d50:	f2c4 0000 	movt	r0, #16384	; 0x4000
+    5d54:	f240 7127 	movw	r1, #1831	; 0x727
+    5d58:	f7fc f9ce 	bl	20f8 <USART_GetITStatus>
+    5d5c:	4603      	mov	r3, r0
+    5d5e:	2b00      	cmp	r3, #0
+    5d60:	d021      	beq.n	5da6 <USART2_IRQHandler+0x5e>
 		/* "give" the serial_tx_wait_sem semaphore to notfiy processes
 		 * that the buffer has a spot free for the next byte.
 		 */
 		xSemaphoreGiveFromISR(serial_tx_wait_sem, &xHigherPriorityTaskWoken);
-    5d1e:	f644 2304 	movw	r3, #18948	; 0x4a04
-    5d22:	f2c2 0300 	movt	r3, #8192	; 0x2000
-    5d26:	681b      	ldr	r3, [r3, #0]
-    5d28:	4618      	mov	r0, r3
-    5d2a:	f04f 0100 	mov.w	r1, #0
-    5d2e:	f644 2208 	movw	r2, #18952	; 0x4a08
-    5d32:	f2c2 0200 	movt	r2, #8192	; 0x2000
-    5d36:	f04f 0300 	mov.w	r3, #0
-    5d3a:	f7fd f9bb 	bl	30b4 <xQueueGenericSendFromISR>
+    5d62:	f644 2304 	movw	r3, #18948	; 0x4a04
+    5d66:	f2c2 0300 	movt	r3, #8192	; 0x2000
+    5d6a:	681b      	ldr	r3, [r3, #0]
+    5d6c:	4618      	mov	r0, r3
+    5d6e:	f04f 0100 	mov.w	r1, #0
+    5d72:	f644 2208 	movw	r2, #18952	; 0x4a08
+    5d76:	f2c2 0200 	movt	r2, #8192	; 0x2000
+    5d7a:	f04f 0300 	mov.w	r3, #0
+    5d7e:	f7fd f999 	bl	30b4 <xQueueGenericSendFromISR>
 
 		/* Diables the transmit interrupt. */
 		USART_ITConfig(USART2, USART_IT_TXE, DISABLE);
-    5d3e:	f44f 4088 	mov.w	r0, #17408	; 0x4400
-    5d42:	f2c4 0000 	movt	r0, #16384	; 0x4000
-    5d46:	f240 7127 	movw	r1, #1831	; 0x727
-    5d4a:	f04f 0200 	mov.w	r2, #0
-    5d4e:	f7fb ff45 	bl	1bdc <USART_ITConfig>
+    5d82:	f44f 4088 	mov.w	r0, #17408	; 0x4400
+    5d86:	f2c4 0000 	movt	r0, #16384	; 0x4000
+    5d8a:	f240 7127 	movw	r1, #1831	; 0x727
+    5d8e:	f04f 0200 	mov.w	r2, #0
+    5d92:	f7fb ff23 	bl	1bdc <USART_ITConfig>
 		 * If this is another type of interrupt, freeze.
 		 */
 		while(1);
 	}
 
 	if (xHigherPriorityTaskWoken) {
-    5d52:	f644 2308 	movw	r3, #18952	; 0x4a08
-    5d56:	f2c2 0300 	movt	r3, #8192	; 0x2000
-    5d5a:	681b      	ldr	r3, [r3, #0]
-    5d5c:	2b00      	cmp	r3, #0
-    5d5e:	d101      	bne.n	5d64 <USART2_IRQHandler+0x60>
-    5d60:	e002      	b.n	5d68 <USART2_IRQHandler+0x64>
+    5d96:	f644 2308 	movw	r3, #18952	; 0x4a08
+    5d9a:	f2c2 0300 	movt	r3, #8192	; 0x2000
+    5d9e:	681b      	ldr	r3, [r3, #0]
+    5da0:	2b00      	cmp	r3, #0
+    5da2:	d101      	bne.n	5da8 <USART2_IRQHandler+0x60>
+    5da4:	e002      	b.n	5dac <USART2_IRQHandler+0x64>
 	}
 	else {
 		/* Only transmit and receive interrupts should be enabled.
 		 * If this is another type of interrupt, freeze.
 		 */
 		while(1);
-    5d62:	e7fe      	b.n	5d62 <USART2_IRQHandler+0x5e>
+    5da6:	e7fe      	b.n	5da6 <USART2_IRQHandler+0x5e>
 	}
 
 	if (xHigherPriorityTaskWoken) {
 		taskYIELD();
-    5d64:	f7fe fe68 	bl	4a38 <vPortYieldFromISR>
+    5da8:	f7fe fe46 	bl	4a38 <vPortYieldFromISR>
 	}
 }
-    5d68:	bd80      	pop	{r7, pc}
-    5d6a:	bf00      	nop
+    5dac:	bd80      	pop	{r7, pc}
+    5dae:	bf00      	nop
 
-00005d6c <send_byte>:
+00005db0 <send_byte>:
 
 void send_byte(char ch)
 {
-    5d6c:	b580      	push	{r7, lr}
-    5d6e:	b082      	sub	sp, #8
-    5d70:	af00      	add	r7, sp, #0
-    5d72:	4603      	mov	r3, r0
-    5d74:	71fb      	strb	r3, [r7, #7]
+    5db0:	b580      	push	{r7, lr}
+    5db2:	b082      	sub	sp, #8
+    5db4:	af00      	add	r7, sp, #0
+    5db6:	4603      	mov	r3, r0
+    5db8:	71fb      	strb	r3, [r7, #7]
 	/* Wait until the RS232 port can receive another byte (this semaphore
 	 * is "given" by the RS232 port interrupt when the buffer has room for
 	 * another byte.
 	 */
 	while (!xSemaphoreTake(serial_tx_wait_sem, portMAX_DELAY));
-    5d76:	bf00      	nop
-    5d78:	f644 2304 	movw	r3, #18948	; 0x4a04
-    5d7c:	f2c2 0300 	movt	r3, #8192	; 0x2000
-    5d80:	681b      	ldr	r3, [r3, #0]
-    5d82:	4618      	mov	r0, r3
-    5d84:	f04f 0100 	mov.w	r1, #0
-    5d88:	f04f 32ff 	mov.w	r2, #4294967295
-    5d8c:	f04f 0300 	mov.w	r3, #0
-    5d90:	f7fd f9d8 	bl	3144 <xQueueGenericReceive>
-    5d94:	4603      	mov	r3, r0
-    5d96:	2b00      	cmp	r3, #0
-    5d98:	d0ee      	beq.n	5d78 <send_byte+0xc>
+    5dba:	bf00      	nop
+    5dbc:	f644 2304 	movw	r3, #18948	; 0x4a04
+    5dc0:	f2c2 0300 	movt	r3, #8192	; 0x2000
+    5dc4:	681b      	ldr	r3, [r3, #0]
+    5dc6:	4618      	mov	r0, r3
+    5dc8:	f04f 0100 	mov.w	r1, #0
+    5dcc:	f04f 32ff 	mov.w	r2, #4294967295
+    5dd0:	f04f 0300 	mov.w	r3, #0
+    5dd4:	f7fd f9b6 	bl	3144 <xQueueGenericReceive>
+    5dd8:	4603      	mov	r3, r0
+    5dda:	2b00      	cmp	r3, #0
+    5ddc:	d0ee      	beq.n	5dbc <send_byte+0xc>
 
 	/* Send the byte and enable the transmit interrupt (it is disabled by
 	 * the interrupt).
 	 */
 	USART_SendData(USART2, ch);
-    5d9a:	79fb      	ldrb	r3, [r7, #7]
-    5d9c:	b29b      	uxth	r3, r3
-    5d9e:	f44f 4088 	mov.w	r0, #17408	; 0x4400
-    5da2:	f2c4 0000 	movt	r0, #16384	; 0x4000
-    5da6:	4619      	mov	r1, r3
-    5da8:	f7fc f822 	bl	1df0 <USART_SendData>
+    5dde:	79fb      	ldrb	r3, [r7, #7]
+    5de0:	b29b      	uxth	r3, r3
+    5de2:	f44f 4088 	mov.w	r0, #17408	; 0x4400
+    5de6:	f2c4 0000 	movt	r0, #16384	; 0x4000
+    5dea:	4619      	mov	r1, r3
+    5dec:	f7fc f800 	bl	1df0 <USART_SendData>
 	USART_ITConfig(USART2, USART_IT_TXE, ENABLE);
-    5dac:	f44f 4088 	mov.w	r0, #17408	; 0x4400
-    5db0:	f2c4 0000 	movt	r0, #16384	; 0x4000
-    5db4:	f240 7127 	movw	r1, #1831	; 0x727
-    5db8:	f04f 0201 	mov.w	r2, #1
-    5dbc:	f7fb ff0e 	bl	1bdc <USART_ITConfig>
+    5df0:	f44f 4088 	mov.w	r0, #17408	; 0x4400
+    5df4:	f2c4 0000 	movt	r0, #16384	; 0x4000
+    5df8:	f240 7127 	movw	r1, #1831	; 0x727
+    5dfc:	f04f 0201 	mov.w	r2, #1
+    5e00:	f7fb feec 	bl	1bdc <USART_ITConfig>
 }
-    5dc0:	f107 0708 	add.w	r7, r7, #8
-    5dc4:	46bd      	mov	sp, r7
-    5dc6:	bd80      	pop	{r7, pc}
+    5e04:	f107 0708 	add.w	r7, r7, #8
+    5e08:	46bd      	mov	sp, r7
+    5e0a:	bd80      	pop	{r7, pc}
 
-00005dc8 <read_romfs_task>:
+00005e0c <receive_byte>:
+
+void receive_byte(char *rec_char){
+    5e0c:	b580      	push	{r7, lr}
+    5e0e:	b084      	sub	sp, #16
+    5e10:	af00      	add	r7, sp, #0
+    5e12:	6078      	str	r0, [r7, #4]
+	rec_char = USART_ReceiveData(USART2);
+    5e14:	f44f 4088 	mov.w	r0, #17408	; 0x4400
+    5e18:	f2c4 0000 	movt	r0, #16384	; 0x4000
+    5e1c:	f7fb fffc 	bl	1e18 <USART_ReceiveData>
+    5e20:	4603      	mov	r3, r0
+    5e22:	60fb      	str	r3, [r7, #12]
+}
+    5e24:	f107 0710 	add.w	r7, r7, #16
+    5e28:	46bd      	mov	sp, r7
+    5e2a:	bd80      	pop	{r7, pc}
+
+00005e2c <read_romfs_task>:
 
 void read_romfs_task(void *pvParameters)
 {
-    5dc8:	b580      	push	{r7, lr}
-    5dca:	b0a4      	sub	sp, #144	; 0x90
-    5dcc:	af00      	add	r7, sp, #0
-    5dce:	6078      	str	r0, [r7, #4]
+    5e2c:	b580      	push	{r7, lr}
+    5e2e:	b0a4      	sub	sp, #144	; 0x90
+    5e30:	af00      	add	r7, sp, #0
+    5e32:	6078      	str	r0, [r7, #4]
 	char buf[128];
 	size_t count;
 	int fd = fs_open("/romfs/test.txt", 0, O_RDONLY);
-    5dd0:	f645 7074 	movw	r0, #24436	; 0x5f74
-    5dd4:	f2c0 0000 	movt	r0, #0
-    5dd8:	f04f 0100 	mov.w	r1, #0
-    5ddc:	f04f 0200 	mov.w	r2, #0
-    5de0:	f7ff fa20 	bl	5224 <fs_open>
-    5de4:	f8c7 008c 	str.w	r0, [r7, #140]	; 0x8c
+    5e34:	f645 70e4 	movw	r0, #24548	; 0x5fe4
+    5e38:	f2c0 0000 	movt	r0, #0
+    5e3c:	f04f 0100 	mov.w	r1, #0
+    5e40:	f04f 0200 	mov.w	r2, #0
+    5e44:	f7ff f9ee 	bl	5224 <fs_open>
+    5e48:	f8c7 008c 	str.w	r0, [r7, #140]	; 0x8c
 	do {
 		//Read from /romfs/test.txt to buffer
 		count = fio_read(fd, buf, sizeof(buf));
-    5de8:	f8d7 008c 	ldr.w	r0, [r7, #140]	; 0x8c
-    5dec:	f107 0308 	add.w	r3, r7, #8
-    5df0:	4619      	mov	r1, r3
-    5df2:	f04f 0280 	mov.w	r2, #128	; 0x80
-    5df6:	f7ff fc41 	bl	567c <fio_read>
-    5dfa:	4603      	mov	r3, r0
-    5dfc:	f8c7 3088 	str.w	r3, [r7, #136]	; 0x88
+    5e4c:	f8d7 008c 	ldr.w	r0, [r7, #140]	; 0x8c
+    5e50:	f107 0308 	add.w	r3, r7, #8
+    5e54:	4619      	mov	r1, r3
+    5e56:	f04f 0280 	mov.w	r2, #128	; 0x80
+    5e5a:	f7ff fc0f 	bl	567c <fio_read>
+    5e5e:	4603      	mov	r3, r0
+    5e60:	f8c7 3088 	str.w	r3, [r7, #136]	; 0x88
 		
 		//Write buffer to fd 1 (stdout, through uart)
 		fio_write(1, buf, count);
-    5e00:	f04f 0001 	mov.w	r0, #1
-    5e04:	f107 0308 	add.w	r3, r7, #8
-    5e08:	4619      	mov	r1, r3
-    5e0a:	f8d7 2088 	ldr.w	r2, [r7, #136]	; 0x88
-    5e0e:	f7ff fc83 	bl	5718 <fio_write>
+    5e64:	f04f 0001 	mov.w	r0, #1
+    5e68:	f107 0308 	add.w	r3, r7, #8
+    5e6c:	4619      	mov	r1, r3
+    5e6e:	f8d7 2088 	ldr.w	r2, [r7, #136]	; 0x88
+    5e72:	f7ff fc51 	bl	5718 <fio_write>
 	} while (count);
-    5e12:	f8d7 3088 	ldr.w	r3, [r7, #136]	; 0x88
-    5e16:	2b00      	cmp	r3, #0
-    5e18:	d1e6      	bne.n	5de8 <read_romfs_task+0x20>
+    5e76:	f8d7 3088 	ldr.w	r3, [r7, #136]	; 0x88
+    5e7a:	2b00      	cmp	r3, #0
+    5e7c:	d1e6      	bne.n	5e4c <read_romfs_task+0x20>
 	
 	while (1);
-    5e1a:	e7fe      	b.n	5e1a <read_romfs_task+0x52>
+    5e7e:	e7fe      	b.n	5e7e <read_romfs_task+0x52>
 
-00005e1c <main>:
+00005e80 <main>:
 }
 
 int main()
 {
-    5e1c:	b580      	push	{r7, lr}
-    5e1e:	b084      	sub	sp, #16
-    5e20:	af04      	add	r7, sp, #16
+    5e80:	b580      	push	{r7, lr}
+    5e82:	b084      	sub	sp, #16
+    5e84:	af04      	add	r7, sp, #16
 	init_rs232();
-    5e22:	f7fe ff89 	bl	4d38 <init_rs232>
+    5e86:	f7fe ff57 	bl	4d38 <init_rs232>
 	enable_rs232_interrupts();
-    5e26:	f7fe ffdf 	bl	4de8 <enable_rs232_interrupts>
+    5e8a:	f7fe ffad 	bl	4de8 <enable_rs232_interrupts>
 	enable_rs232();
-    5e2a:	f7fe fffd 	bl	4e28 <enable_rs232>
+    5e8e:	f7fe ffcb 	bl	4e28 <enable_rs232>
 	
 	fs_init();
-    5e2e:	f7ff f981 	bl	5134 <fs_init>
+    5e92:	f7ff f94f 	bl	5134 <fs_init>
 	fio_init();
-    5e32:	f7ff fa95 	bl	5360 <fio_init>
+    5e96:	f7ff fa63 	bl	5360 <fio_init>
 	
 	register_romfs("romfs", &_sromfs);
-    5e36:	f645 7084 	movw	r0, #24452	; 0x5f84
-    5e3a:	f2c0 0000 	movt	r0, #0
-    5e3e:	f645 7198 	movw	r1, #24472	; 0x5f98
-    5e42:	f2c0 0100 	movt	r1, #0
-    5e46:	f7ff f92d 	bl	50a4 <register_romfs>
+    5e9a:	f645 70f4 	movw	r0, #24564	; 0x5ff4
+    5e9e:	f2c0 0000 	movt	r0, #0
+    5ea2:	f246 0108 	movw	r1, #24584	; 0x6008
+    5ea6:	f2c0 0100 	movt	r1, #0
+    5eaa:	f7ff f8fb 	bl	50a4 <register_romfs>
 	
 	/* Create the queue used by the serial task.  Messages for write to
 	 * the RS232. */
 	vSemaphoreCreateBinary(serial_tx_wait_sem);
-    5e4a:	f04f 0001 	mov.w	r0, #1
-    5e4e:	f04f 0100 	mov.w	r1, #0
-    5e52:	f04f 0203 	mov.w	r2, #3
-    5e56:	f7fc fff9 	bl	2e4c <xQueueGenericCreate>
-    5e5a:	4602      	mov	r2, r0
-    5e5c:	f644 2304 	movw	r3, #18948	; 0x4a04
-    5e60:	f2c2 0300 	movt	r3, #8192	; 0x2000
-    5e64:	601a      	str	r2, [r3, #0]
-    5e66:	f644 2304 	movw	r3, #18948	; 0x4a04
-    5e6a:	f2c2 0300 	movt	r3, #8192	; 0x2000
-    5e6e:	681b      	ldr	r3, [r3, #0]
-    5e70:	2b00      	cmp	r3, #0
-    5e72:	d00d      	beq.n	5e90 <main+0x74>
-    5e74:	f644 2304 	movw	r3, #18948	; 0x4a04
-    5e78:	f2c2 0300 	movt	r3, #8192	; 0x2000
-    5e7c:	681b      	ldr	r3, [r3, #0]
-    5e7e:	4618      	mov	r0, r3
-    5e80:	f04f 0100 	mov.w	r1, #0
-    5e84:	f04f 0200 	mov.w	r2, #0
-    5e88:	f04f 0300 	mov.w	r3, #0
-    5e8c:	f7fd f882 	bl	2f94 <xQueueGenericSend>
-
+    5eae:	f04f 0001 	mov.w	r0, #1
+    5eb2:	f04f 0100 	mov.w	r1, #0
+    5eb6:	f04f 0203 	mov.w	r2, #3
+    5eba:	f7fc ffc7 	bl	2e4c <xQueueGenericCreate>
+    5ebe:	4602      	mov	r2, r0
+    5ec0:	f644 2304 	movw	r3, #18948	; 0x4a04
+    5ec4:	f2c2 0300 	movt	r3, #8192	; 0x2000
+    5ec8:	601a      	str	r2, [r3, #0]
+    5eca:	f644 2304 	movw	r3, #18948	; 0x4a04
+    5ece:	f2c2 0300 	movt	r3, #8192	; 0x2000
+    5ed2:	681b      	ldr	r3, [r3, #0]
+    5ed4:	2b00      	cmp	r3, #0
+    5ed6:	d00d      	beq.n	5ef4 <main+0x74>
+    5ed8:	f644 2304 	movw	r3, #18948	; 0x4a04
+    5edc:	f2c2 0300 	movt	r3, #8192	; 0x2000
+    5ee0:	681b      	ldr	r3, [r3, #0]
+    5ee2:	4618      	mov	r0, r3
+    5ee4:	f04f 0100 	mov.w	r1, #0
+    5ee8:	f04f 0200 	mov.w	r2, #0
+    5eec:	f04f 0300 	mov.w	r3, #0
+    5ef0:	f7fd f850 	bl	2f94 <xQueueGenericSend>
 	/* Create a task to output text read from romfs. */
-	xTaskCreate(read_romfs_task,
-    5e90:	f04f 0302 	mov.w	r3, #2
-    5e94:	9300      	str	r3, [sp, #0]
-    5e96:	f04f 0300 	mov.w	r3, #0
-    5e9a:	9301      	str	r3, [sp, #4]
-    5e9c:	f04f 0300 	mov.w	r3, #0
-    5ea0:	9302      	str	r3, [sp, #8]
-    5ea2:	f04f 0300 	mov.w	r3, #0
-    5ea6:	9303      	str	r3, [sp, #12]
-    5ea8:	f645 50c9 	movw	r0, #24009	; 0x5dc9
-    5eac:	f2c0 0000 	movt	r0, #0
-    5eb0:	f645 718c 	movw	r1, #24460	; 0x5f8c
-    5eb4:	f2c0 0100 	movt	r1, #0
-    5eb8:	f44f 7200 	mov.w	r2, #512	; 0x200
-    5ebc:	f04f 0300 	mov.w	r3, #0
-    5ec0:	f7fd fbae 	bl	3620 <xTaskGenericCreate>
-	            (signed portCHAR *) "Read romfs",
+//	xTaskCreate(read_romfs_task,
+//	            (signed portCHAR *) "Read romfs",
+//	            512 /* stack size */, NULL, tskIDLE_PRIORITY + 2, NULL);
+				
+	xTaskCreate(user_shell,
+    5ef4:	f645 5321 	movw	r3, #23841	; 0x5d21
+    5ef8:	f2c0 0300 	movt	r3, #0
+    5efc:	f04f 0202 	mov.w	r2, #2
+    5f00:	9200      	str	r2, [sp, #0]
+    5f02:	f04f 0200 	mov.w	r2, #0
+    5f06:	9201      	str	r2, [sp, #4]
+    5f08:	f04f 0200 	mov.w	r2, #0
+    5f0c:	9202      	str	r2, [sp, #8]
+    5f0e:	f04f 0200 	mov.w	r2, #0
+    5f12:	9203      	str	r2, [sp, #12]
+    5f14:	4618      	mov	r0, r3
+    5f16:	f645 71fc 	movw	r1, #24572	; 0x5ffc
+    5f1a:	f2c0 0100 	movt	r1, #0
+    5f1e:	f44f 7200 	mov.w	r2, #512	; 0x200
+    5f22:	f04f 0300 	mov.w	r3, #0
+    5f26:	f7fd fb7b 	bl	3620 <xTaskGenericCreate>
+	            (signed portCHAR *) "User Shell",
 	            512 /* stack size */, NULL, tskIDLE_PRIORITY + 2, NULL);
 
 	/* Start running the tasks. */
 	vTaskStartScheduler();
-    5ec4:	f7fd ff62 	bl	3d8c <vTaskStartScheduler>
+    5f2a:	f7fd ff2f 	bl	3d8c <vTaskStartScheduler>
 
 	return 0;
-    5ec8:	f04f 0300 	mov.w	r3, #0
+    5f2e:	f04f 0300 	mov.w	r3, #0
 }
-    5ecc:	4618      	mov	r0, r3
-    5ece:	46bd      	mov	sp, r7
-    5ed0:	bd80      	pop	{r7, pc}
-    5ed2:	bf00      	nop
+    5f32:	4618      	mov	r0, r3
+    5f34:	46bd      	mov	sp, r7
+    5f36:	bd80      	pop	{r7, pc}
 
-00005ed4 <vApplicationTickHook>:
+00005f38 <vApplicationTickHook>:
 
 void vApplicationTickHook()
 {
-    5ed4:	b480      	push	{r7}
-    5ed6:	af00      	add	r7, sp, #0
+    5f38:	b480      	push	{r7}
+    5f3a:	af00      	add	r7, sp, #0
 }
-    5ed8:	46bd      	mov	sp, r7
-    5eda:	bc80      	pop	{r7}
-    5edc:	4770      	bx	lr
-    5ede:	bf00      	nop
+    5f3c:	46bd      	mov	sp, r7
+    5f3e:	bc80      	pop	{r7}
+    5f40:	4770      	bx	lr
+    5f42:	bf00      	nop
 
-00005ee0 <Reset_Handler>:
+00005f44 <Reset_Handler>:
 	.weak	Reset_Handler
 	.type	Reset_Handler, %function
 Reset_Handler:	
 
 /* Copy the data segment initializers from flash to SRAM */  
   movs	r1, #0
-    5ee0:	2100      	movs	r1, #0
+    5f44:	2100      	movs	r1, #0
   b	LoopCopyDataInit
-    5ee2:	f000 b804 	b.w	5eee <LoopCopyDataInit>
+    5f46:	f000 b804 	b.w	5f52 <LoopCopyDataInit>
 
-00005ee6 <CopyDataInit>:
+00005f4a <CopyDataInit>:
 
 CopyDataInit:
 	ldr	r3, =_sidata
-    5ee6:	4b0c      	ldr	r3, [pc, #48]	; (5f18 <LoopFillZerobss+0x12>)
+    5f4a:	4b0c      	ldr	r3, [pc, #48]	; (5f7c <LoopFillZerobss+0x12>)
 	ldr	r3, [r3, r1]
-    5ee8:	585b      	ldr	r3, [r3, r1]
+    5f4c:	585b      	ldr	r3, [r3, r1]
 	str	r3, [r0, r1]
-    5eea:	5043      	str	r3, [r0, r1]
+    5f4e:	5043      	str	r3, [r0, r1]
 	adds	r1, r1, #4
-    5eec:	3104      	adds	r1, #4
+    5f50:	3104      	adds	r1, #4
 
-00005eee <LoopCopyDataInit>:
+00005f52 <LoopCopyDataInit>:
     
 LoopCopyDataInit:
 	ldr	r0, =_sdata
-    5eee:	480b      	ldr	r0, [pc, #44]	; (5f1c <LoopFillZerobss+0x16>)
+    5f52:	480b      	ldr	r0, [pc, #44]	; (5f80 <LoopFillZerobss+0x16>)
 	ldr	r3, =_edata
-    5ef0:	4b0b      	ldr	r3, [pc, #44]	; (5f20 <LoopFillZerobss+0x1a>)
+    5f54:	4b0b      	ldr	r3, [pc, #44]	; (5f84 <LoopFillZerobss+0x1a>)
 	adds	r2, r0, r1
-    5ef2:	1842      	adds	r2, r0, r1
+    5f56:	1842      	adds	r2, r0, r1
 	cmp	r2, r3
-    5ef4:	429a      	cmp	r2, r3
+    5f58:	429a      	cmp	r2, r3
 	bcc	CopyDataInit
-    5ef6:	f4ff aff6 	bcc.w	5ee6 <CopyDataInit>
+    5f5a:	f4ff aff6 	bcc.w	5f4a <CopyDataInit>
 	ldr	r2, =_sbss
-    5efa:	4a0a      	ldr	r2, [pc, #40]	; (5f24 <LoopFillZerobss+0x1e>)
+    5f5e:	4a0a      	ldr	r2, [pc, #40]	; (5f88 <LoopFillZerobss+0x1e>)
 	b	LoopFillZerobss
-    5efc:	f000 b803 	b.w	5f06 <LoopFillZerobss>
+    5f60:	f000 b803 	b.w	5f6a <LoopFillZerobss>
 
-00005f00 <FillZerobss>:
+00005f64 <FillZerobss>:
 /* Zero fill the bss segment. */  
 FillZerobss:
 	movs	r3, #0
-    5f00:	2300      	movs	r3, #0
+    5f64:	2300      	movs	r3, #0
 	str	r3, [r2], #4
-    5f02:	f842 3b04 	str.w	r3, [r2], #4
+    5f66:	f842 3b04 	str.w	r3, [r2], #4
 
-00005f06 <LoopFillZerobss>:
+00005f6a <LoopFillZerobss>:
     
 LoopFillZerobss:
 	ldr	r3, = _ebss
-    5f06:	4b08      	ldr	r3, [pc, #32]	; (5f28 <LoopFillZerobss+0x22>)
+    5f6a:	4b08      	ldr	r3, [pc, #32]	; (5f8c <LoopFillZerobss+0x22>)
 	cmp	r2, r3
-    5f08:	429a      	cmp	r2, r3
+    5f6c:	429a      	cmp	r2, r3
 	bcc	FillZerobss
-    5f0a:	f4ff aff9 	bcc.w	5f00 <FillZerobss>
+    5f6e:	f4ff aff9 	bcc.w	5f64 <FillZerobss>
 /* Call the clock system intitialization function.*/
   bl  SystemInit 	
-    5f0e:	f7fa fa43 	bl	398 <SystemInit>
+    5f72:	f7fa fa11 	bl	398 <SystemInit>
 /* Call the application's entry point.*/
 	bl	main
-    5f12:	f7ff ff83 	bl	5e1c <main>
+    5f76:	f7ff ff83 	bl	5e80 <main>
 	bx	lr    
-    5f16:	4770      	bx	lr
+    5f7a:	4770      	bx	lr
 /* Copy the data segment initializers from flash to SRAM */  
   movs	r1, #0
   b	LoopCopyDataInit
 
 CopyDataInit:
 	ldr	r3, =_sidata
-    5f18:	0000644b 	.word	0x0000644b
+    5f7c:	000064bb 	.word	0x000064bb
 	ldr	r3, [r3, r1]
 	str	r3, [r0, r1]
 	adds	r1, r1, #4
     
 LoopCopyDataInit:
 	ldr	r0, =_sdata
-    5f1c:	20000000 	.word	0x20000000
+    5f80:	20000000 	.word	0x20000000
 	ldr	r3, =_edata
-    5f20:	20000030 	.word	0x20000030
+    5f84:	20000030 	.word	0x20000030
 	adds	r2, r0, r1
 	cmp	r2, r3
 	bcc	CopyDataInit
 	ldr	r2, =_sbss
-    5f24:	20000038 	.word	0x20000038
+    5f88:	20000038 	.word	0x20000038
 FillZerobss:
 	movs	r3, #0
 	str	r3, [r2], #4
     
 LoopFillZerobss:
 	ldr	r3, = _ebss
-    5f28:	20004a0c 	.word	0x20004a0c
+    5f8c:	20004a0c 	.word	0x20004a0c
 
-00005f2c <ADC1_2_IRQHandler>:
+00005f90 <ADC1_2_IRQHandler>:
  * @retval None       
 */
     .section	.text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
 	b	Infinite_Loop
-    5f2c:	f7ff bffe 	b.w	5f2c <ADC1_2_IRQHandler>
+    5f90:	f7ff bffe 	b.w	5f90 <ADC1_2_IRQHandler>
 
-00005f30 <.LC0>:
-    5f30:	454c4449 	.word	0x454c4449
-    5f34:	00000000 	.word	0x00000000
+00005f94 <.LC0>:
+    5f94:	454c4449 	.word	0x454c4449
+    5f98:	00000000 	.word	0x00000000
 
-00005f38 <ulKernelPriority>:
-    5f38:	0000007f                                ....
+00005f9c <ulKernelPriority>:
+    5f9c:	0000007f                                ....
 
-00005f3c <.LC0>:
-    5f3c:	69676572 	.word	0x69676572
-    5f40:	72657473 	.word	0x72657473
-    5f44:	2873665f 	.word	0x2873665f
-    5f48:	22732522 	.word	0x22732522
-    5f4c:	7025202c 	.word	0x7025202c
-    5f50:	7025202c 	.word	0x7025202c
-    5f54:	000a0d29 	.word	0x000a0d29
+00005fa0 <.LC0>:
+    5fa0:	69676572 	.word	0x69676572
+    5fa4:	72657473 	.word	0x72657473
+    5fa8:	2873665f 	.word	0x2873665f
+    5fac:	22732522 	.word	0x22732522
+    5fb0:	7025202c 	.word	0x7025202c
+    5fb4:	7025202c 	.word	0x7025202c
+    5fb8:	000a0d29 	.word	0x000a0d29
 
-00005f58 <.LC0>:
-    5f58:	69676552 	.word	0x69676552
-    5f5c:	72657473 	.word	0x72657473
-    5f60:	20676e69 	.word	0x20676e69
-    5f64:	66766564 	.word	0x66766564
-    5f68:	0a0d2e73 	.word	0x0a0d2e73
-    5f6c:	00000000 	.word	0x00000000
+00005fbc <.LC0>:
+    5fbc:	69676552 	.word	0x69676552
+    5fc0:	72657473 	.word	0x72657473
+    5fc4:	20676e69 	.word	0x20676e69
+    5fc8:	66766564 	.word	0x66766564
+    5fcc:	0a0d2e73 	.word	0x0a0d2e73
+    5fd0:	00000000 	.word	0x00000000
 
-00005f70 <.LC1>:
-    5f70:	00766564 	.word	0x00766564
+00005fd4 <.LC1>:
+    5fd4:	00766564 	.word	0x00766564
 
-00005f74 <.LC0>:
-    5f74:	6d6f722f 	.word	0x6d6f722f
-    5f78:	742f7366 	.word	0x742f7366
-    5f7c:	2e747365 	.word	0x2e747365
-    5f80:	00747874 	.word	0x00747874
+00005fd8 <.LC0>:
+    5fd8:	68737665 	.word	0x68737665
+    5fdc:	2d797261 	.word	0x2d797261
+    5fe0:	0000003e 	.word	0x0000003e
 
-00005f84 <.LC1>:
-    5f84:	666d6f72 	.word	0x666d6f72
-    5f88:	00000073 	.word	0x00000073
+00005fe4 <.LC0>:
+    5fe4:	6d6f722f 	.word	0x6d6f722f
+    5fe8:	742f7366 	.word	0x742f7366
+    5fec:	2e747365 	.word	0x2e747365
+    5ff0:	00747874 	.word	0x00747874
 
-00005f8c <.LC2>:
-    5f8c:	64616552 	.word	0x64616552
-    5f90:	6d6f7220 	.word	0x6d6f7220
-    5f94:	00007366 	.word	0x00007366
+00005ff4 <.LC1>:
+    5ff4:	666d6f72 	.word	0x666d6f72
+    5ff8:	00000073 	.word	0x00000073
 
-00005f98 <_binary_test_romfs_bin_start>:
-    5f98:	799400a6 	.word	0x799400a6
-    5f9c:	0000018d 	.word	0x0000018d
-    5fa0:	6d74683c 	.word	0x6d74683c
-    5fa4:	3c0a3e6c 	.word	0x3c0a3e6c
-    5fa8:	64616568 	.word	0x64616568
-    5fac:	69743c3e 	.word	0x69743c3e
-    5fb0:	3e656c74 	.word	0x3e656c74
-    5fb4:	65626d45 	.word	0x65626d45
-    5fb8:	64656464 	.word	0x64656464
-    5fbc:	69742f3c 	.word	0x69742f3c
-    5fc0:	3e656c74 	.word	0x3e656c74
-    5fc4:	65682f3c 	.word	0x65682f3c
-    5fc8:	0a3e6461 	.word	0x0a3e6461
-    5fcc:	646f623c 	.word	0x646f623c
-    5fd0:	67622079 	.word	0x67622079
-    5fd4:	6f6c6f63 	.word	0x6f6c6f63
-    5fd8:	77223d72 	.word	0x77223d72
-    5fdc:	65746968 	.word	0x65746968
-    5fe0:	65742022 	.word	0x65742022
-    5fe4:	223d7478 	.word	0x223d7478
-    5fe8:	63616c62 	.word	0x63616c62
-    5fec:	0a3e226b 	.word	0x0a3e226b
-    5ff0:	2020200a 	.word	0x2020200a
-    5ff4:	61743c20 	.word	0x61743c20
-    5ff8:	20656c62 	.word	0x20656c62
-    5ffc:	74646977 	.word	0x74646977
-    6000:	31223d68 	.word	0x31223d68
-    6004:	22253030 	.word	0x22253030
-    6008:	20200a3e 	.word	0x20200a3e
-    600c:	20202020 	.word	0x20202020
-    6010:	2072743c 	.word	0x2072743c
-    6014:	696c6176 	.word	0x696c6176
-    6018:	223d6e67 	.word	0x223d6e67
-    601c:	22706f74 	.word	0x22706f74
-    6020:	64743c3e 	.word	0x64743c3e
-    6024:	64697720 	.word	0x64697720
-    6028:	223d6874 	.word	0x223d6874
-    602c:	3e223038 	.word	0x3e223038
-    6030:	0a202009 	.word	0x0a202009
-    6034:	742f3c09 	.word	0x742f3c09
-    6038:	743c3e64 	.word	0x743c3e64
-    603c:	69772064 	.word	0x69772064
-    6040:	3d687464 	.word	0x3d687464
-    6044:	30303522 	.word	0x30303522
-    6048:	20093e22 	.word	0x20093e22
-    604c:	20090a20 	.word	0x20090a20
-    6050:	31683c20 	.word	0x31683c20
-    6054:	67694c3e 	.word	0x67694c3e
-    6058:	65777468 	.word	0x65777468
-    605c:	74686769 	.word	0x74686769
-    6060:	62657720 	.word	0x62657720
-    6064:	72657320 	.word	0x72657320
-    6068:	3c726576 	.word	0x3c726576
-    606c:	3e31682f 	.word	0x3e31682f
-    6070:	2020090a 	.word	0x2020090a
-    6074:	3e32683c 	.word	0x3e32683c
-    6078:	20343034 	.word	0x20343034
-    607c:	6150202d 	.word	0x6150202d
-    6080:	6e206567 	.word	0x6e206567
-    6084:	6620746f 	.word	0x6620746f
-    6088:	646e756f 	.word	0x646e756f
-    608c:	32682f3c 	.word	0x32682f3c
-    6090:	20090a3e 	.word	0x20090a3e
-    6094:	3e703c20 	.word	0x3e703c20
-    6098:	2020090a 	.word	0x2020090a
-    609c:	6f532020 	.word	0x6f532020
-    60a0:	2c797272 	.word	0x2c797272
-    60a4:	65687420 	.word	0x65687420
-    60a8:	67617020 	.word	0x67617020
-    60ac:	6f792065 	.word	0x6f792065
-    60b0:	72612075 	.word	0x72612075
-    60b4:	65722065 	.word	0x65722065
-    60b8:	73657571 	.word	0x73657571
-    60bc:	676e6974 	.word	0x676e6974
-    60c0:	73617720 	.word	0x73617720
-    60c4:	746f6e20 	.word	0x746f6e20
-    60c8:	756f6620 	.word	0x756f6620
-    60cc:	6f20646e 	.word	0x6f20646e
-    60d0:	6874206e 	.word	0x6874206e
-    60d4:	090a7369 	.word	0x090a7369
-    60d8:	20202020 	.word	0x20202020
-    60dc:	76726573 	.word	0x76726573
-    60e0:	202e7265 	.word	0x202e7265
-    60e4:	2020090a 	.word	0x2020090a
-    60e8:	3e702f3c 	.word	0x3e702f3c
-    60ec:	2f3c090a 	.word	0x2f3c090a
-    60f0:	3c3e6474 	.word	0x3c3e6474
-    60f4:	0a3e6474 	.word	0x0a3e6474
-    60f8:	26202009 	.word	0x26202009
-    60fc:	7073626e 	.word	0x7073626e
-    6100:	3c090a3b 	.word	0x3c090a3b
-    6104:	3e64742f 	.word	0x3e64742f
-    6108:	72742f3c 	.word	0x72742f3c
-    610c:	20200a3e 	.word	0x20200a3e
-    6110:	20202020 	.word	0x20202020
-    6114:	61742f3c 	.word	0x61742f3c
-    6118:	3e656c62 	.word	0x3e656c62
-    611c:	622f3c0a 	.word	0x622f3c0a
-    6120:	3e79646f 	.word	0x3e79646f
-    6124:	682f3c0a 	.word	0x682f3c0a
-    6128:	3e6c6d74 	.word	0x3e6c6d74
-    612c:	6438250a 	.word	0x6438250a
-    6130:	00000ce0 	.word	0x00000ce0
-    6134:	6d6f5200 	.word	0x6d6f5200
-    6138:	54207366 	.word	0x54207366
-    613c:	21747365 	.word	0x21747365
-    6140:	fc80880a 	.word	0xfc80880a
-    6144:	0002fa62 	.word	0x0002fa62
-    6148:	74683c00 	.word	0x74683c00
-    614c:	0a3e6c6d 	.word	0x0a3e6c6d
-    6150:	6165683c 	.word	0x6165683c
-    6154:	743c3e64 	.word	0x743c3e64
-    6158:	656c7469 	.word	0x656c7469
-    615c:	626d453e 	.word	0x626d453e
-    6160:	65646465 	.word	0x65646465
-    6164:	79532064 	.word	0x79532064
-    6168:	6d657473 	.word	0x6d657473
-    616c:	63654c20 	.word	0x63654c20
-    6170:	65727574 	.word	0x65727574
-    6174:	206e6920 	.word	0x206e6920
-    6178:	554b434e 	.word	0x554b434e
-    617c:	31303220 	.word	0x31303220
-    6180:	742f3c32 	.word	0x742f3c32
-    6184:	656c7469 	.word	0x656c7469
-    6188:	682f3c3e 	.word	0x682f3c3e
-    618c:	3e646165 	.word	0x3e646165
-    6190:	6f623c0a 	.word	0x6f623c0a
-    6194:	62207964 	.word	0x62207964
-    6198:	6c6f6367 	.word	0x6c6f6367
-    619c:	223d726f 	.word	0x223d726f
-    61a0:	74696877 	.word	0x74696877
-    61a4:	74202265 	.word	0x74202265
-    61a8:	3d747865 	.word	0x3d747865
-    61ac:	616c6222 	.word	0x616c6222
-    61b0:	3e226b63 	.word	0x3e226b63
-    61b4:	20200a0a 	.word	0x20200a0a
-    61b8:	743c2020 	.word	0x743c2020
-    61bc:	656c6261 	.word	0x656c6261
-    61c0:	64697720 	.word	0x64697720
-    61c4:	223d6874 	.word	0x223d6874
-    61c8:	25303031 	.word	0x25303031
-    61cc:	200a3e22 	.word	0x200a3e22
-    61d0:	20202020 	.word	0x20202020
-    61d4:	72743c20 	.word	0x72743c20
-    61d8:	6c617620 	.word	0x6c617620
-    61dc:	3d6e6769 	.word	0x3d6e6769
-    61e0:	706f7422 	.word	0x706f7422
-    61e4:	743c3e22 	.word	0x743c3e22
-    61e8:	69772064 	.word	0x69772064
-    61ec:	3d687464 	.word	0x3d687464
-    61f0:	22303822 	.word	0x22303822
-    61f4:	2020093e 	.word	0x2020093e
-    61f8:	2f3c090a 	.word	0x2f3c090a
-    61fc:	3c3e6474 	.word	0x3c3e6474
-    6200:	77206474 	.word	0x77206474
-    6204:	68746469 	.word	0x68746469
-    6208:	3035223d 	.word	0x3035223d
-    620c:	093e2230 	.word	0x093e2230
-    6210:	090a2020 	.word	0x090a2020
-    6214:	683c2020 	.word	0x683c2020
-    6218:	6d453e31 	.word	0x6d453e31
-    621c:	64646562 	.word	0x64646562
-    6220:	2f3c6465 	.word	0x2f3c6465
-    6224:	0a3e3168 	.word	0x0a3e3168
-    6228:	3c202009 	.word	0x3c202009
-    622c:	090a3e70 	.word	0x090a3e70
-    6230:	20202020 	.word	0x20202020
-    6234:	20656854 	.word	0x20656854
-    6238:	20626577 	.word	0x20626577
-    623c:	65676170 	.word	0x65676170
-    6240:	756f7920 	.word	0x756f7920
-    6244:	65726120 	.word	0x65726120
-    6248:	74617720 	.word	0x74617720
-    624c:	6e696863 	.word	0x6e696863
-    6250:	61772067 	.word	0x61772067
-    6254:	65732073 	.word	0x65732073
-    6258:	64657672 	.word	0x64657672
-    625c:	20796220 	.word	0x20796220
-    6260:	69732061 	.word	0x69732061
-    6264:	656c706d 	.word	0x656c706d
-    6268:	62657720 	.word	0x62657720
-    626c:	2020090a 	.word	0x2020090a
-    6270:	65732020 	.word	0x65732020
-    6274:	72657672 	.word	0x72657672
-    6278:	6e757220 	.word	0x6e757220
-    627c:	676e696e 	.word	0x676e696e
-    6280:	206e6f20 	.word	0x206e6f20
-    6284:	20706f74 	.word	0x20706f74
-    6288:	7420666f 	.word	0x7420666f
-    628c:	6c206568 	.word	0x6c206568
-    6290:	74686769 	.word	0x74686769
-    6294:	67696577 	.word	0x67696577
-    6298:	54207468 	.word	0x54207468
-    629c:	492f5043 	.word	0x492f5043
-    62a0:	74732050 	.word	0x74732050
-    62a4:	206b6361 	.word	0x206b6361
-    62a8:	090a613c 	.word	0x090a613c
-    62ac:	20202020 	.word	0x20202020
-    62b0:	66657268 	.word	0x66657268
-    62b4:	7468223d 	.word	0x7468223d
-    62b8:	2f3a7074 	.word	0x2f3a7074
-    62bc:	7777772f 	.word	0x7777772f
-    62c0:	6369732e 	.word	0x6369732e
-    62c4:	65732e73 	.word	0x65732e73
-    62c8:	64617e2f 	.word	0x64617e2f
-    62cc:	6c2f6d61 	.word	0x6c2f6d61
-    62d0:	2f706977 	.word	0x2f706977
-    62d4:	776c3e22 	.word	0x776c3e22
-    62d8:	2f3c5049 	.word	0x2f3c5049
-    62dc:	0a2e3e61 	.word	0x0a2e3e61
-    62e0:	3c202009 	.word	0x3c202009
-    62e4:	0a3e702f 	.word	0x0a3e702f
-    62e8:	3c202009 	.word	0x3c202009
-    62ec:	090a3e70 	.word	0x090a3e70
-    62f0:	20202020 	.word	0x20202020
-    62f4:	20656854 	.word	0x20656854
-    62f8:	75636f66 	.word	0x75636f66
-    62fc:	666f2073 	.word	0x666f2073
-    6300:	65687420 	.word	0x65687420
-    6304:	49776c20 	.word	0x49776c20
-    6308:	43542050 	.word	0x43542050
-    630c:	50492f50 	.word	0x50492f50
-    6310:	706d6920 	.word	0x706d6920
-    6314:	656d656c 	.word	0x656d656c
-    6318:	7461746e 	.word	0x7461746e
-    631c:	206e6f69 	.word	0x206e6f69
-    6320:	74207369 	.word	0x74207369
-    6324:	6572206f 	.word	0x6572206f
-    6328:	65637564 	.word	0x65637564
-    632c:	2020090a 	.word	0x2020090a
-    6330:	68742020 	.word	0x68742020
-    6334:	41522065 	.word	0x41522065
-    6338:	7375204d 	.word	0x7375204d
-    633c:	20656761 	.word	0x20656761
-    6340:	6c696877 	.word	0x6c696877
-    6344:	74732065 	.word	0x74732065
-    6348:	206c6c69 	.word	0x206c6c69
-    634c:	69766168 	.word	0x69766168
-    6350:	6120676e 	.word	0x6120676e
-    6354:	6c756620 	.word	0x6c756620
-    6358:	6373206c 	.word	0x6373206c
-    635c:	20656c61 	.word	0x20656c61
-    6360:	2e504354 	.word	0x2e504354
-    6364:	69685420 	.word	0x69685420
-    6368:	20090a73 	.word	0x20090a73
-    636c:	6d202020 	.word	0x6d202020
-    6370:	73656b61 	.word	0x73656b61
+00005ffc <.LC2>:
+    5ffc:	72657355 	.word	0x72657355
+    6000:	65685320 	.word	0x65685320
+    6004:	00006c6c 	.word	0x00006c6c
+
+00006008 <_binary_test_romfs_bin_start>:
+    6008:	799400a6 	.word	0x799400a6
+    600c:	0000018d 	.word	0x0000018d
+    6010:	6d74683c 	.word	0x6d74683c
+    6014:	3c0a3e6c 	.word	0x3c0a3e6c
+    6018:	64616568 	.word	0x64616568
+    601c:	69743c3e 	.word	0x69743c3e
+    6020:	3e656c74 	.word	0x3e656c74
+    6024:	65626d45 	.word	0x65626d45
+    6028:	64656464 	.word	0x64656464
+    602c:	69742f3c 	.word	0x69742f3c
+    6030:	3e656c74 	.word	0x3e656c74
+    6034:	65682f3c 	.word	0x65682f3c
+    6038:	0a3e6461 	.word	0x0a3e6461
+    603c:	646f623c 	.word	0x646f623c
+    6040:	67622079 	.word	0x67622079
+    6044:	6f6c6f63 	.word	0x6f6c6f63
+    6048:	77223d72 	.word	0x77223d72
+    604c:	65746968 	.word	0x65746968
+    6050:	65742022 	.word	0x65742022
+    6054:	223d7478 	.word	0x223d7478
+    6058:	63616c62 	.word	0x63616c62
+    605c:	0a3e226b 	.word	0x0a3e226b
+    6060:	2020200a 	.word	0x2020200a
+    6064:	61743c20 	.word	0x61743c20
+    6068:	20656c62 	.word	0x20656c62
+    606c:	74646977 	.word	0x74646977
+    6070:	31223d68 	.word	0x31223d68
+    6074:	22253030 	.word	0x22253030
+    6078:	20200a3e 	.word	0x20200a3e
+    607c:	20202020 	.word	0x20202020
+    6080:	2072743c 	.word	0x2072743c
+    6084:	696c6176 	.word	0x696c6176
+    6088:	223d6e67 	.word	0x223d6e67
+    608c:	22706f74 	.word	0x22706f74
+    6090:	64743c3e 	.word	0x64743c3e
+    6094:	64697720 	.word	0x64697720
+    6098:	223d6874 	.word	0x223d6874
+    609c:	3e223038 	.word	0x3e223038
+    60a0:	0a202009 	.word	0x0a202009
+    60a4:	742f3c09 	.word	0x742f3c09
+    60a8:	743c3e64 	.word	0x743c3e64
+    60ac:	69772064 	.word	0x69772064
+    60b0:	3d687464 	.word	0x3d687464
+    60b4:	30303522 	.word	0x30303522
+    60b8:	20093e22 	.word	0x20093e22
+    60bc:	20090a20 	.word	0x20090a20
+    60c0:	31683c20 	.word	0x31683c20
+    60c4:	67694c3e 	.word	0x67694c3e
+    60c8:	65777468 	.word	0x65777468
+    60cc:	74686769 	.word	0x74686769
+    60d0:	62657720 	.word	0x62657720
+    60d4:	72657320 	.word	0x72657320
+    60d8:	3c726576 	.word	0x3c726576
+    60dc:	3e31682f 	.word	0x3e31682f
+    60e0:	2020090a 	.word	0x2020090a
+    60e4:	3e32683c 	.word	0x3e32683c
+    60e8:	20343034 	.word	0x20343034
+    60ec:	6150202d 	.word	0x6150202d
+    60f0:	6e206567 	.word	0x6e206567
+    60f4:	6620746f 	.word	0x6620746f
+    60f8:	646e756f 	.word	0x646e756f
+    60fc:	32682f3c 	.word	0x32682f3c
+    6100:	20090a3e 	.word	0x20090a3e
+    6104:	3e703c20 	.word	0x3e703c20
+    6108:	2020090a 	.word	0x2020090a
+    610c:	6f532020 	.word	0x6f532020
+    6110:	2c797272 	.word	0x2c797272
+    6114:	65687420 	.word	0x65687420
+    6118:	67617020 	.word	0x67617020
+    611c:	6f792065 	.word	0x6f792065
+    6120:	72612075 	.word	0x72612075
+    6124:	65722065 	.word	0x65722065
+    6128:	73657571 	.word	0x73657571
+    612c:	676e6974 	.word	0x676e6974
+    6130:	73617720 	.word	0x73617720
+    6134:	746f6e20 	.word	0x746f6e20
+    6138:	756f6620 	.word	0x756f6620
+    613c:	6f20646e 	.word	0x6f20646e
+    6140:	6874206e 	.word	0x6874206e
+    6144:	090a7369 	.word	0x090a7369
+    6148:	20202020 	.word	0x20202020
+    614c:	76726573 	.word	0x76726573
+    6150:	202e7265 	.word	0x202e7265
+    6154:	2020090a 	.word	0x2020090a
+    6158:	3e702f3c 	.word	0x3e702f3c
+    615c:	2f3c090a 	.word	0x2f3c090a
+    6160:	3c3e6474 	.word	0x3c3e6474
+    6164:	0a3e6474 	.word	0x0a3e6474
+    6168:	26202009 	.word	0x26202009
+    616c:	7073626e 	.word	0x7073626e
+    6170:	3c090a3b 	.word	0x3c090a3b
+    6174:	3e64742f 	.word	0x3e64742f
+    6178:	72742f3c 	.word	0x72742f3c
+    617c:	20200a3e 	.word	0x20200a3e
+    6180:	20202020 	.word	0x20202020
+    6184:	61742f3c 	.word	0x61742f3c
+    6188:	3e656c62 	.word	0x3e656c62
+    618c:	622f3c0a 	.word	0x622f3c0a
+    6190:	3e79646f 	.word	0x3e79646f
+    6194:	682f3c0a 	.word	0x682f3c0a
+    6198:	3e6c6d74 	.word	0x3e6c6d74
+    619c:	6438250a 	.word	0x6438250a
+    61a0:	00000ce0 	.word	0x00000ce0
+    61a4:	6d6f5200 	.word	0x6d6f5200
+    61a8:	54207366 	.word	0x54207366
+    61ac:	21747365 	.word	0x21747365
+    61b0:	fc80880a 	.word	0xfc80880a
+    61b4:	0002fa62 	.word	0x0002fa62
+    61b8:	74683c00 	.word	0x74683c00
+    61bc:	0a3e6c6d 	.word	0x0a3e6c6d
+    61c0:	6165683c 	.word	0x6165683c
+    61c4:	743c3e64 	.word	0x743c3e64
+    61c8:	656c7469 	.word	0x656c7469
+    61cc:	626d453e 	.word	0x626d453e
+    61d0:	65646465 	.word	0x65646465
+    61d4:	79532064 	.word	0x79532064
+    61d8:	6d657473 	.word	0x6d657473
+    61dc:	63654c20 	.word	0x63654c20
+    61e0:	65727574 	.word	0x65727574
+    61e4:	206e6920 	.word	0x206e6920
+    61e8:	554b434e 	.word	0x554b434e
+    61ec:	31303220 	.word	0x31303220
+    61f0:	742f3c32 	.word	0x742f3c32
+    61f4:	656c7469 	.word	0x656c7469
+    61f8:	682f3c3e 	.word	0x682f3c3e
+    61fc:	3e646165 	.word	0x3e646165
+    6200:	6f623c0a 	.word	0x6f623c0a
+    6204:	62207964 	.word	0x62207964
+    6208:	6c6f6367 	.word	0x6c6f6367
+    620c:	223d726f 	.word	0x223d726f
+    6210:	74696877 	.word	0x74696877
+    6214:	74202265 	.word	0x74202265
+    6218:	3d747865 	.word	0x3d747865
+    621c:	616c6222 	.word	0x616c6222
+    6220:	3e226b63 	.word	0x3e226b63
+    6224:	20200a0a 	.word	0x20200a0a
+    6228:	743c2020 	.word	0x743c2020
+    622c:	656c6261 	.word	0x656c6261
+    6230:	64697720 	.word	0x64697720
+    6234:	223d6874 	.word	0x223d6874
+    6238:	25303031 	.word	0x25303031
+    623c:	200a3e22 	.word	0x200a3e22
+    6240:	20202020 	.word	0x20202020
+    6244:	72743c20 	.word	0x72743c20
+    6248:	6c617620 	.word	0x6c617620
+    624c:	3d6e6769 	.word	0x3d6e6769
+    6250:	706f7422 	.word	0x706f7422
+    6254:	743c3e22 	.word	0x743c3e22
+    6258:	69772064 	.word	0x69772064
+    625c:	3d687464 	.word	0x3d687464
+    6260:	22303822 	.word	0x22303822
+    6264:	2020093e 	.word	0x2020093e
+    6268:	2f3c090a 	.word	0x2f3c090a
+    626c:	3c3e6474 	.word	0x3c3e6474
+    6270:	77206474 	.word	0x77206474
+    6274:	68746469 	.word	0x68746469
+    6278:	3035223d 	.word	0x3035223d
+    627c:	093e2230 	.word	0x093e2230
+    6280:	090a2020 	.word	0x090a2020
+    6284:	683c2020 	.word	0x683c2020
+    6288:	6d453e31 	.word	0x6d453e31
+    628c:	64646562 	.word	0x64646562
+    6290:	2f3c6465 	.word	0x2f3c6465
+    6294:	0a3e3168 	.word	0x0a3e3168
+    6298:	3c202009 	.word	0x3c202009
+    629c:	090a3e70 	.word	0x090a3e70
+    62a0:	20202020 	.word	0x20202020
+    62a4:	20656854 	.word	0x20656854
+    62a8:	20626577 	.word	0x20626577
+    62ac:	65676170 	.word	0x65676170
+    62b0:	756f7920 	.word	0x756f7920
+    62b4:	65726120 	.word	0x65726120
+    62b8:	74617720 	.word	0x74617720
+    62bc:	6e696863 	.word	0x6e696863
+    62c0:	61772067 	.word	0x61772067
+    62c4:	65732073 	.word	0x65732073
+    62c8:	64657672 	.word	0x64657672
+    62cc:	20796220 	.word	0x20796220
+    62d0:	69732061 	.word	0x69732061
+    62d4:	656c706d 	.word	0x656c706d
+    62d8:	62657720 	.word	0x62657720
+    62dc:	2020090a 	.word	0x2020090a
+    62e0:	65732020 	.word	0x65732020
+    62e4:	72657672 	.word	0x72657672
+    62e8:	6e757220 	.word	0x6e757220
+    62ec:	676e696e 	.word	0x676e696e
+    62f0:	206e6f20 	.word	0x206e6f20
+    62f4:	20706f74 	.word	0x20706f74
+    62f8:	7420666f 	.word	0x7420666f
+    62fc:	6c206568 	.word	0x6c206568
+    6300:	74686769 	.word	0x74686769
+    6304:	67696577 	.word	0x67696577
+    6308:	54207468 	.word	0x54207468
+    630c:	492f5043 	.word	0x492f5043
+    6310:	74732050 	.word	0x74732050
+    6314:	206b6361 	.word	0x206b6361
+    6318:	090a613c 	.word	0x090a613c
+    631c:	20202020 	.word	0x20202020
+    6320:	66657268 	.word	0x66657268
+    6324:	7468223d 	.word	0x7468223d
+    6328:	2f3a7074 	.word	0x2f3a7074
+    632c:	7777772f 	.word	0x7777772f
+    6330:	6369732e 	.word	0x6369732e
+    6334:	65732e73 	.word	0x65732e73
+    6338:	64617e2f 	.word	0x64617e2f
+    633c:	6c2f6d61 	.word	0x6c2f6d61
+    6340:	2f706977 	.word	0x2f706977
+    6344:	776c3e22 	.word	0x776c3e22
+    6348:	2f3c5049 	.word	0x2f3c5049
+    634c:	0a2e3e61 	.word	0x0a2e3e61
+    6350:	3c202009 	.word	0x3c202009
+    6354:	0a3e702f 	.word	0x0a3e702f
+    6358:	3c202009 	.word	0x3c202009
+    635c:	090a3e70 	.word	0x090a3e70
+    6360:	20202020 	.word	0x20202020
+    6364:	20656854 	.word	0x20656854
+    6368:	75636f66 	.word	0x75636f66
+    636c:	666f2073 	.word	0x666f2073
+    6370:	65687420 	.word	0x65687420
     6374:	49776c20 	.word	0x49776c20
-    6378:	75732050 	.word	0x75732050
-    637c:	62617469 	.word	0x62617469
-    6380:	6620656c 	.word	0x6620656c
-    6384:	7520726f 	.word	0x7520726f
-    6388:	69206573 	.word	0x69206573
-    638c:	6d65206e 	.word	0x6d65206e
-    6390:	64646562 	.word	0x64646562
-    6394:	73206465 	.word	0x73206465
-    6398:	65747379 	.word	0x65747379
-    639c:	7720736d 	.word	0x7720736d
-    63a0:	20687469 	.word	0x20687469
-    63a4:	736e6574 	.word	0x736e6574
-    63a8:	2020090a 	.word	0x2020090a
-    63ac:	666f2020 	.word	0x666f2020
-    63b0:	6c696b20 	.word	0x6c696b20
-    63b4:	7479626f 	.word	0x7479626f
-    63b8:	6f207365 	.word	0x6f207365
-    63bc:	72662066 	.word	0x72662066
-    63c0:	52206565 	.word	0x52206565
-    63c4:	61204d41 	.word	0x61204d41
-    63c8:	7220646e 	.word	0x7220646e
-    63cc:	206d6f6f 	.word	0x206d6f6f
-    63d0:	20726f66 	.word	0x20726f66
-    63d4:	756f7261 	.word	0x756f7261
-    63d8:	3420646e 	.word	0x3420646e
-    63dc:	696b2030 	.word	0x696b2030
-    63e0:	79626f6c 	.word	0x79626f6c
-    63e4:	0a736574 	.word	0x0a736574
-    63e8:	20202009 	.word	0x20202009
-    63ec:	20666f20 	.word	0x20666f20
-    63f0:	65646f63 	.word	0x65646f63
-    63f4:	4d4f5220 	.word	0x4d4f5220
-    63f8:	20090a2e 	.word	0x20090a2e
-    63fc:	702f3c20 	.word	0x702f3c20
-    6400:	3c090a3e 	.word	0x3c090a3e
-    6404:	3e64742f 	.word	0x3e64742f
-    6408:	3e64743c 	.word	0x3e64743c
-    640c:	2020090a 	.word	0x2020090a
-    6410:	73626e26 	.word	0x73626e26
-    6414:	090a3b70 	.word	0x090a3b70
-    6418:	64742f3c 	.word	0x64742f3c
-    641c:	742f3c3e 	.word	0x742f3c3e
-    6420:	200a3e72 	.word	0x200a3e72
-    6424:	20202020 	.word	0x20202020
-    6428:	742f3c20 	.word	0x742f3c20
-    642c:	656c6261 	.word	0x656c6261
-    6430:	2f3c0a3e 	.word	0x2f3c0a3e
-    6434:	79646f62 	.word	0x79646f62
-    6438:	2f3c0a3e 	.word	0x2f3c0a3e
-    643c:	6c6d7468 	.word	0x6c6d7468
-    6440:	000a0a3e 	.word	0x000a0a3e
-    6444:	00000000 	.word	0x00000000
-    6448:	0000      	.short	0x0000
+    6378:	43542050 	.word	0x43542050
+    637c:	50492f50 	.word	0x50492f50
+    6380:	706d6920 	.word	0x706d6920
+    6384:	656d656c 	.word	0x656d656c
+    6388:	7461746e 	.word	0x7461746e
+    638c:	206e6f69 	.word	0x206e6f69
+    6390:	74207369 	.word	0x74207369
+    6394:	6572206f 	.word	0x6572206f
+    6398:	65637564 	.word	0x65637564
+    639c:	2020090a 	.word	0x2020090a
+    63a0:	68742020 	.word	0x68742020
+    63a4:	41522065 	.word	0x41522065
+    63a8:	7375204d 	.word	0x7375204d
+    63ac:	20656761 	.word	0x20656761
+    63b0:	6c696877 	.word	0x6c696877
+    63b4:	74732065 	.word	0x74732065
+    63b8:	206c6c69 	.word	0x206c6c69
+    63bc:	69766168 	.word	0x69766168
+    63c0:	6120676e 	.word	0x6120676e
+    63c4:	6c756620 	.word	0x6c756620
+    63c8:	6373206c 	.word	0x6373206c
+    63cc:	20656c61 	.word	0x20656c61
+    63d0:	2e504354 	.word	0x2e504354
+    63d4:	69685420 	.word	0x69685420
+    63d8:	20090a73 	.word	0x20090a73
+    63dc:	6d202020 	.word	0x6d202020
+    63e0:	73656b61 	.word	0x73656b61
+    63e4:	49776c20 	.word	0x49776c20
+    63e8:	75732050 	.word	0x75732050
+    63ec:	62617469 	.word	0x62617469
+    63f0:	6620656c 	.word	0x6620656c
+    63f4:	7520726f 	.word	0x7520726f
+    63f8:	69206573 	.word	0x69206573
+    63fc:	6d65206e 	.word	0x6d65206e
+    6400:	64646562 	.word	0x64646562
+    6404:	73206465 	.word	0x73206465
+    6408:	65747379 	.word	0x65747379
+    640c:	7720736d 	.word	0x7720736d
+    6410:	20687469 	.word	0x20687469
+    6414:	736e6574 	.word	0x736e6574
+    6418:	2020090a 	.word	0x2020090a
+    641c:	666f2020 	.word	0x666f2020
+    6420:	6c696b20 	.word	0x6c696b20
+    6424:	7479626f 	.word	0x7479626f
+    6428:	6f207365 	.word	0x6f207365
+    642c:	72662066 	.word	0x72662066
+    6430:	52206565 	.word	0x52206565
+    6434:	61204d41 	.word	0x61204d41
+    6438:	7220646e 	.word	0x7220646e
+    643c:	206d6f6f 	.word	0x206d6f6f
+    6440:	20726f66 	.word	0x20726f66
+    6444:	756f7261 	.word	0x756f7261
+    6448:	3420646e 	.word	0x3420646e
+    644c:	696b2030 	.word	0x696b2030
+    6450:	79626f6c 	.word	0x79626f6c
+    6454:	0a736574 	.word	0x0a736574
+    6458:	20202009 	.word	0x20202009
+    645c:	20666f20 	.word	0x20666f20
+    6460:	65646f63 	.word	0x65646f63
+    6464:	4d4f5220 	.word	0x4d4f5220
+    6468:	20090a2e 	.word	0x20090a2e
+    646c:	702f3c20 	.word	0x702f3c20
+    6470:	3c090a3e 	.word	0x3c090a3e
+    6474:	3e64742f 	.word	0x3e64742f
+    6478:	3e64743c 	.word	0x3e64743c
+    647c:	2020090a 	.word	0x2020090a
+    6480:	73626e26 	.word	0x73626e26
+    6484:	090a3b70 	.word	0x090a3b70
+    6488:	64742f3c 	.word	0x64742f3c
+    648c:	742f3c3e 	.word	0x742f3c3e
+    6490:	200a3e72 	.word	0x200a3e72
+    6494:	20202020 	.word	0x20202020
+    6498:	742f3c20 	.word	0x742f3c20
+    649c:	656c6261 	.word	0x656c6261
+    64a0:	2f3c0a3e 	.word	0x2f3c0a3e
+    64a4:	79646f62 	.word	0x79646f62
+    64a8:	2f3c0a3e 	.word	0x2f3c0a3e
+    64ac:	6c6d7468 	.word	0x6c6d7468
+    64b0:	000a0a3e 	.word	0x000a0a3e
+    64b4:	00000000 	.word	0x00000000
+    64b8:	0000      	.short	0x0000
 	...
