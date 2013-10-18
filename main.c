@@ -21,12 +21,19 @@ static void setup_hardware();
 
 volatile xSemaphoreHandle serial_tx_wait_sem = NULL;
 
+volatile xQueueHandle serial_rx_queue = NULL; 
+
+/* Queue structure used for passing characters. */
+typedef struct {
+	char ch;
+} serial_ch_msg; 
 
 /* IRQ handler to handle USART2 interruptss (both transmit and receive
  * interrupts). */
 void USART2_IRQHandler()
 {
 	static signed portBASE_TYPE xHigherPriorityTaskWoken;
+	serial_ch_msg rx_msg;
 
 	/* If this interrupt is for a transmit... */
 	if (USART_GetITStatus(USART2, USART_IT_TXE) != RESET) {
@@ -38,8 +45,17 @@ void USART2_IRQHandler()
 		/* Diables the transmit interrupt. */
 		USART_ITConfig(USART2, USART_IT_TXE, DISABLE);
 		/* If this interrupt is for a receive... */
-	}
-	else {
+	}else if (USART_GetITStatus(USART2, USART_IT_RXNE) != RESET) {
+	    /* Receive the byte from the buffer. */
+	    rx_msg.ch = USART_ReceiveData(USART2);
+
+	    /* Queue the received byte. */
+		if (!xQueueSendToBackFromISR(serial_rx_queue, &rx_msg, &xHigherPriorityTaskWoken)) {
+		/* If there was an error queueing the received byte,
+		    * freeze. */
+		   while(1);
+		}
+	}else {
 		/* Only transmit and receive interrupts should be enabled.
 		 * If this is another type of interrupt, freeze.
 		 */
@@ -66,8 +82,13 @@ void send_byte(char ch)
 	USART_ITConfig(USART2, USART_IT_TXE, ENABLE);
 }
 
-void receive_byte(char *rec_char){
-	rec_char = USART_ReceiveData(USART2);
+char receive_byte(){
+	serial_ch_msg msg;
+
+	/* Wait for a byte to be queued by the receive interrupts handler. */
+	while (!xQueueReceive(serial_rx_queue, &msg, portMAX_DELAY));
+
+	return msg.ch; 
 }
 
 void read_romfs_task(void *pvParameters)
@@ -100,6 +121,7 @@ int main()
 	/* Create the queue used by the serial task.  Messages for write to
 	 * the RS232. */
 	vSemaphoreCreateBinary(serial_tx_wait_sem);
+	serial_rx_queue = xQueueCreate(1, sizeof(serial_ch_msg));
 
 	/* Create a task to output text read from romfs. */
 //	xTaskCreate(read_romfs_task,
