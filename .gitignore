@@ -3,4 +3,5 @@
 *.bin
 *.list
 tags
-*.*.swp
+.*.*.swp
+.*.swp
