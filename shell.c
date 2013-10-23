@@ -1,5 +1,6 @@
 #include <stdarg.h>
 #include "fio.h"
+#include "mmtest.h"
 
 #define MAX_COMMAND_LEN 30
 #define BACKSPACE 0x7f
@@ -8,6 +9,7 @@ void hello_func();
 void help_func();
 void ps_func();
 void system_func();
+void mmtest_func();
 
 extern char receive_byte();
 
@@ -16,6 +18,7 @@ enum {
 	HELP,
 	HELLO,
 	SYSTEM,
+	MMTEST,
 	MAX_COMMANDS
 };
 
@@ -45,6 +48,11 @@ shell_cmd commands[] = {
 		.name = "system",
 		.description = "execute the host command",
 		.function = system_func
+	},
+	{
+		.name = "mmtest",
+		.description = "test memory allocation",
+		.function = mmtest_func
 	}
 };
 
@@ -116,6 +124,24 @@ void itoa(int num, char *num_to_str){
 	}
 }
 
+void htoa(int num, char *num_to_str){
+	int digit = 0;
+	int tmp_num = num;
+	int i;
+	while(tmp_num != 0){
+		digit++;
+		tmp_num /= 16;
+	}
+	digit = digit+2;
+	tmp_num = num;
+	num_to_str[digit] = '\0';
+	num_to_str[0] = '0';
+	num_to_str[1] = 'x';
+	for(i = 1; i <= digit-2; i++, tmp_num /= 16){
+		num_to_str[digit-i] = "0123456789abcdef"[tmp_num%16];
+	}
+}
+
 void my_printf(const char *format, ...){
 	va_list argv_list;
 	char *ptr_char;
@@ -148,6 +174,15 @@ void my_printf(const char *format, ...){
 				case 's':
 					args.arg_string = va_arg(argv_list, char*);
 					print(args.arg_string);
+					break;
+				case 'p':
+					args.arg_int = va_arg(argv_list, int);
+					if(args.arg_int == NULL){
+						print("<nil>");
+					}else{
+						htoa(args.arg_int, buf);
+						print(buf);
+					}
 					break;
 				default:
 					buf[0] = print_ch;
@@ -195,6 +230,45 @@ void system_func(){
 	//	{.pINT = strlen(command)}
 	//};
 	//host_call(0x12, func_param);
+}
+
+void mmtest_func(){
+    int i, size;
+    char *p;
+
+    while (1) {
+        size = prng() & 0x7FF;
+        DBGPRINTF1("try to allocate %d bytes\n", size);
+        p = (char *) pvPortMalloc(size);
+        DBGPRINTF1("malloc returned %p\n", p);
+        if (p == NULL) {
+            // can't do new allocations until we free some older ones
+            while (circbuf_size() > 0) {
+                // confirm that data didn't get trampled before freeing
+                struct slot foo = read_cb();
+                p = foo.pointer;
+                lfsr = foo.lfsr;  // reset the PRNG to its earlier state
+                size = foo.size;
+                my_printf("free a block, size %d\n", size);
+                for (i = 0; i < size; i++) {
+                    unsigned char u = p[i];
+                    unsigned char v = (unsigned char) prng();
+                    if (u != v) {
+                        DBGPRINTF2("OUCH: u=%02X, v=%02X\n", u, v);
+                        return 1;
+                    }
+                }
+                vPortFree(p);
+                if ((prng() & 1) == 0) break;
+            }
+        } else {
+            my_printf("allocate a block, size %d\n", size);
+            write_cb((struct slot){.pointer=p, .size=size, .lfsr=lfsr});
+            for (i = 0; i < size; i++) {
+                p[i] = (unsigned char) prng();
+            }
+        }
+    }
 }
 
 void user_shell(){
