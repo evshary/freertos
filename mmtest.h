@@ -10,8 +10,8 @@
 
 typedef int portBASE_TYPE;
 
-#define vTaskSuspendAll()
-#define xTaskResumeAll()
+//#define vTaskSuspendAll()
+//#define xTaskResumeAll()
 
 #ifdef ENABLE_DEBUG
 #define DBGPRINTF(x)          my_printf("%s %d: ", __FILE__, __LINE__); my_printf(x)
