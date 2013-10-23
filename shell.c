@@ -230,7 +230,7 @@ void my_printf(const char *format, ...){
 
 int sprintf(char *dest, const char *format, ...){
 	va_list argv_list;
-	char point_ch = *format;
+	char *pstr = dest;
 	va_start(argv_list, format);
 	typedef union {
 		unsigned arg_unsigned;
@@ -238,52 +238,50 @@ int sprintf(char *dest, const char *format, ...){
 		char *arg_string;
 	} argvs;
 	argvs args;
-	while(point_ch != '\0'){
-		if(point_ch == '%'){
+	while(*format != '\0'){
+		if(*format == '%'){
 			format++;
-			point_ch = *format;
-			switch(point_ch){
+			switch(*format){
 				case 'c':
 					args.arg_int = va_arg(argv_list, int);
-					*dest++ = (char)args.arg_int;
+					*pstr++ = (char)args.arg_int;
 					break;
 				case 'd':
 					args.arg_int = va_arg(argv_list, int);
-					itoa(args.arg_int, dest);
-					dest += strlen(dest);
+					itoa(args.arg_int, pstr);
+					pstr += strlen(pstr);
 					break;
 				case 's':
 					args.arg_string = va_arg(argv_list, char*);
-					strcpy(dest, args.arg_string);
-					dest += strlen(dest);
+					strcpy(pstr, args.arg_string);
+					pstr += strlen(pstr);
 					break;
 				case 'p':
 					args.arg_int = va_arg(argv_list, int);
 					if(args.arg_int == NULL){
-						strcpy(dest, args.arg_int);
-						dest += strlen(dest);
+						strcpy(pstr, args.arg_int);
+						pstr += strlen(pstr);
 					}else{
-						htoa(args.arg_int, dest);
-						dest += strlen(dest);
+						htoa(args.arg_int, pstr);
+						pstr += strlen(pstr);
 					}
 					break;
 				case 'u':
 					args.arg_unsigned = va_arg(argv_list, unsigned);
-					utoa(args.arg_unsigned, dest);
-					dest += strlen(dest);
+					utoa(args.arg_unsigned, pstr);
+					pstr += strlen(pstr);
 					break;
 				default:
-					*dest++ = point_ch;
+					*pstr++ = *format;
 			}
 		}else{
-			*dest++ = point_ch;
+			*pstr++ = *format;
 		}
-		
 		format++;
-		point_ch = *format;
 	}
-
+	*pstr = '\0';
 	va_end(argv_list);
+	return dest - pstr;
 }
 
 void help_func(){
@@ -302,7 +300,7 @@ void hello_func(){
 }
 
 void ps_func(){
-	char buf[MAX_COMMAND_LEN];
+	char buf[1024];
 	vTaskList(buf);
 	my_printf("%s\n", buf);
 }
