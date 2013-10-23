@@ -1,6 +1,8 @@
 #include <stdarg.h>
 #include "fio.h"
 #include "mmtest.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 #define MAX_COMMAND_LEN 30
 #define BACKSPACE 0x7f
@@ -78,6 +80,16 @@ int strcmp(char *str1, char *str2){
 	return -1;
 }
 
+int strcat(char *str1, char *str2){
+	int i;
+	int str1_end = strlen(str1);
+	for(i = 0; i < strlen(str2); i++){
+		str1[str1_end++] = str2[i];
+	}
+	str1[str1_end] = '\0';
+	return 1;
+}
+
 void print(char * print_str){
 	fio_write(1, print_str, strlen(print_str));
 	if(print_str[strlen(print_str)-1] == '\n')
@@ -142,9 +154,23 @@ void htoa(int num, char *num_to_str){
 	}
 }
 
+void utoa(unsigned num, char *num_to_str){
+	int digit = 0;
+	unsigned tmp_u = num;
+	int i;
+	while(tmp_u != 0){
+		digit++;
+		tmp_u /= 10;
+	}
+	tmp_u = num;
+	num_to_str[digit] = '\0';
+	for(i = 1; i <= digit; i++, tmp_u /= 10){
+		num_to_str[digit-i] = "0123456789"[tmp_u%10];
+	}
+}
+
 void my_printf(const char *format, ...){
 	va_list argv_list;
-	char *ptr_char;
 	char print_ch;
 	char buf[32];
 	va_start(argv_list, format);
@@ -202,6 +228,64 @@ void my_printf(const char *format, ...){
 	va_end(argv_list);
 }
 
+int sprintf(char *dest, const char *format, ...){
+	va_list argv_list;
+	char point_ch = *format;
+	va_start(argv_list, format);
+	typedef union {
+		unsigned arg_unsigned;
+		int arg_int;
+		char *arg_string;
+	} argvs;
+	argvs args;
+	while(point_ch != '\0'){
+		if(point_ch == '%'){
+			format++;
+			point_ch = *format;
+			switch(point_ch){
+				case 'c':
+					args.arg_int = va_arg(argv_list, int);
+					*dest++ = (char)args.arg_int;
+					break;
+				case 'd':
+					args.arg_int = va_arg(argv_list, int);
+					itoa(args.arg_int, dest);
+					dest += strlen(dest);
+					break;
+				case 's':
+					args.arg_string = va_arg(argv_list, char*);
+					strcpy(dest, args.arg_string);
+					dest += strlen(dest);
+					break;
+				case 'p':
+					args.arg_int = va_arg(argv_list, int);
+					if(args.arg_int == NULL){
+						strcpy(dest, args.arg_int);
+						dest += strlen(dest);
+					}else{
+						htoa(args.arg_int, dest);
+						dest += strlen(dest);
+					}
+					break;
+				case 'u':
+					args.arg_unsigned = va_arg(argv_list, unsigned);
+					utoa(args.arg_unsigned, dest);
+					dest += strlen(dest);
+					break;
+				default:
+					*dest++ = point_ch;
+			}
+		}else{
+			*dest++ = point_ch;
+		}
+		
+		format++;
+		point_ch = *format;
+	}
+
+	va_end(argv_list);
+}
+
 void help_func(){
 	int i;
 	print("This shell supports the commands following:\n");
@@ -218,7 +302,9 @@ void hello_func(){
 }
 
 void ps_func(){
-	my_printf("ps:%d %c %s\n", 23, 'a', "abc123");
+	char buf[MAX_COMMAND_LEN];
+	vTaskList(buf);
+	my_printf("%s\n", buf);
 }
 
 void system_func(){
