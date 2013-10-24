@@ -1,12 +1,12 @@
 #define ENABLE_DEBUG
 //#include "FreeRTOS.h"
 #define ALIGNMENT_BITS 2
-#define portBYTE_ALIGNMENT      (1 << ALIGNMENT_BITS)
-#define portBYTE_ALIGNMENT_MASK (portBYTE_ALIGNMENT - 1)
+//#define portBYTE_ALIGNMENT      (1 << ALIGNMENT_BITS)
+//#define portBYTE_ALIGNMENT_MASK (portBYTE_ALIGNMENT - 1)
 #define configUSE_MALLOC_FAILED_HOOK 0
 #define configTOTAL_HEAP_SIZE 4096
-#define pdFALSE 0
-#define pdTRUE 1
+//#define pdFALSE 0
+//#define pdTRUE 1
 
 typedef int portBASE_TYPE;
 

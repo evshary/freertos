@@ -1,9 +1,8 @@
-#include <stdarg.h>
 #include "fio.h"
+#include "string-util.h"
 #include "mmtest.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "string-util.h"
 
 #define MAX_COMMAND_LEN 30
 #define BACKSPACE 0x7f
@@ -68,14 +67,14 @@ void read_string(char *command){
 		ch[0] = receive_byte();
 		if(curr_char >= MAX_COMMAND_LEN || (ch[0] == '\r') || (ch[0] == '\n')){
 			command[curr_char] = '\0';
-			print("\n");
+			my_printf("\n");
 			done = 1;
 		}else if(ch[0] == BACKSPACE){
 			curr_char--;
-			print("\b \b\0");
+			my_printf("\b \b\0");
 		}else{
 			command[curr_char++] = ch[0];
-			print(ch);
+			my_printf("%c", ch[0]);
 		}
 	}while(!done);
 
@@ -83,17 +82,14 @@ void read_string(char *command){
 
 void help_func(){
 	int i;
-	print("This shell supports the commands following:\n");
+	my_printf("This shell supports the commands following:\n");
 	for(i = 0; i < MAX_COMMANDS; i++){
-		print(commands[i].name);
-		print(": ");
-		print(commands[i].description);
-		print("\n");
+		my_printf("%s: %s\n", commands[i].name, commands[i].description);
 	}
 }
 
 void hello_func(){
-	print("Hello World\n");
+	my_printf("Hello World\n");
 }
 
 void ps_func(){
@@ -104,7 +100,7 @@ void ps_func(){
 
 void system_func(){
 	char command[MAX_COMMAND_LEN];
-	print("Please enter your command:");
+	my_printf("Please enter your command:");
 	read_string(command);
 }
 
@@ -151,7 +147,7 @@ void user_shell(){
 	char command[MAX_COMMAND_LEN];
 	int i;
 	while(1){
-		print("evshary->");
+		my_printf("evshary->");
 		read_string(command);
 
 		for(i = 0; i < MAX_COMMANDS; i++){

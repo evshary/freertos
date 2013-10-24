@@ -109,56 +109,47 @@ void print(char * print_str){
 	}
 }
 
-void itoa(int num, char *num_to_str){
+int num_to_string(unsigned int num, char*num_str, int base, int sign_or_not){
 	int digit = 0;
-	int tmp_num = num;
+	int digit_end;
+	unsigned int tmp_num = num;
+	int minus_or_not = 0;
 	int i;
+	if(tmp_num == 0){
+		num_str[0] = '0';
+		num_str[1] = '\0';
+		return 1;
+	}
+	if((int)tmp_num < 0){
+		num = (int)-num;
+		tmp_num = num;
+		minus_or_not = 1;
+	}
 	while(tmp_num != 0){
 		digit++;
-		tmp_num /= 10;
+		tmp_num /= base;
 	}
 	tmp_num = num;
-	num_to_str[digit] = '\0';
-	for(i = 1; i <= digit; i++){
-		num_to_str[digit-i] = "0123456789"[tmp_num%10];
-		tmp_num /= 10;
+	if(base == 16){
+		num_str[0] = '0';
+		num_str[1] = 'x';
+		digit_end = digit + 2;
+		num_str[digit_end] = '\0';
+	}else if(minus_or_not == 1){
+		num_str[0] = '-';
+		digit_end = digit + 1;
+		num_str[digit_end] = '\0';
+	}else{
+		digit_end = digit;
+		num_str[digit_end] = '\0';
 	}
+	for(i = 1; i <= digit; i++, tmp_num/=base){
+		num_str[digit_end-i] = "0123456789abcdef"[tmp_num % base];
+	}
+	return 1;
 }
 
-void htoa(int num, char *num_to_str){
-	int digit = 0;
-	int tmp_num = num;
-	int i;
-	while(tmp_num != 0){
-		digit++;
-		tmp_num /= 16;
-	}
-	digit = digit+2;
-	tmp_num = num;
-	num_to_str[digit] = '\0';
-	num_to_str[0] = '0';
-	num_to_str[1] = 'x';
-	for(i = 1; i <= digit-2; i++, tmp_num /= 16){
-		num_to_str[digit-i] = "0123456789abcdef"[tmp_num%16];
-	}
-}
-
-void utoa(unsigned num, char *num_to_str){
-	int digit = 0;
-	unsigned tmp_u = num;
-	int i;
-	while(tmp_u != 0){
-		digit++;
-		tmp_u /= 10;
-	}
-	tmp_u = num;
-	num_to_str[digit] = '\0';
-	for(i = 1; i <= digit; i++, tmp_u /= 10){
-		num_to_str[digit-i] = "0123456789"[tmp_u%10];
-	}
-}
-
-void my_printf(const char *format, ...){
+int my_printf(const char *format, ...){
 	va_list argv_list;
 	char print_ch;
 	char buf[32];
@@ -176,14 +167,14 @@ void my_printf(const char *format, ...){
 			print_ch = *format;
 			switch(print_ch){
 				case 'c':
-					args.arg_int = va_arg(argv_list, int);
-					buf[0] = (char)args.arg_int;
+					//args.arg_int = va_arg(argv_list, int);
+					buf[0] = (char)va_arg(argv_list, int);//(char)args.arg_int;
 					buf[1] = '\0';
 					print(buf);
 					break;
 				case 'd':
 					args.arg_int = va_arg(argv_list, int);
-					itoa(args.arg_int, buf);
+					num_to_string(args.arg_int, buf, 10, 1);
 					print(buf);
 					break;
 				case 's':
@@ -195,7 +186,7 @@ void my_printf(const char *format, ...){
 					if(args.arg_int == NULL){
 						print("<nil>");
 					}else{
-						htoa(args.arg_int, buf);
+						num_to_string(args.arg_int, buf, 16, 1);
 						print(buf);
 					}
 					break;
@@ -237,7 +228,7 @@ int sprintf(char *dest, const char *format, ...){
 					break;
 				case 'd':
 					args.arg_int = va_arg(argv_list, int);
-					itoa(args.arg_int, pstr);
+					num_to_string(args.arg_int, pstr, 10, 1);
 					pstr += strlen(pstr);
 					break;
 				case 's':
@@ -251,13 +242,13 @@ int sprintf(char *dest, const char *format, ...){
 						strcpy(pstr, args.arg_int);
 						pstr += strlen(pstr);
 					}else{
-						htoa(args.arg_int, pstr);
+						num_to_string(args.arg_int, pstr, 16, 1);
 						pstr += strlen(pstr);
 					}
 					break;
 				case 'u':
 					args.arg_unsigned = va_arg(argv_list, unsigned);
-					utoa(args.arg_unsigned, pstr);
+					num_to_string(args.arg_unsigned, pstr, 10, 0);
 					pstr += strlen(pstr);
 					break;
 				default:
