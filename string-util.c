@@ -167,8 +167,8 @@ int my_printf(const char *format, ...){
 			print_ch = *format;
 			switch(print_ch){
 				case 'c':
-					//args.arg_int = va_arg(argv_list, int);
-					buf[0] = (char)va_arg(argv_list, int);//(char)args.arg_int;
+					args.arg_int = va_arg(argv_list, int);
+					buf[0] = (char)args.arg_int;
 					buf[1] = '\0';
 					print(buf);
 					break;
@@ -222,15 +222,18 @@ int sprintf(char *dest, const char *format, ...){
 		if(*format == '%'){
 			format++;
 			switch(*format){
+				case 'C':
 				case 'c':
 					args.arg_int = va_arg(argv_list, int);
 					*pstr++ = (char)args.arg_int;
 					break;
+				case 'D':
 				case 'd':
 					args.arg_int = va_arg(argv_list, int);
 					num_to_string(args.arg_int, pstr, 10, 1);
 					pstr += strlen(pstr);
 					break;
+				case 'S':
 				case 's':
 					args.arg_string = va_arg(argv_list, char*);
 					strcpy(pstr, args.arg_string);
@@ -246,6 +249,11 @@ int sprintf(char *dest, const char *format, ...){
 						pstr += strlen(pstr);
 					}
 					break;
+				case 'X':
+				case 'x':
+					args.arg_int = va_arg(argv_list, int);
+					num_to_string(args.arg_int, pstr, 16, 1);
+					pstr += strlen(pstr);
 				case 'u':
 					args.arg_unsigned = va_arg(argv_list, unsigned);
 					num_to_string(args.arg_unsigned, pstr, 10, 0);
