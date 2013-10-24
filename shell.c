@@ -91,11 +91,6 @@ void help_func(){
 
 void hello_func(){
 	printf("Hello World\n");
-	char dest[BUF_SIZE];
-	char *d = "abc";
-	sprintf(dest, "%d %d", 123, 10);
-	//printf("123123\n");
-	printf("%s", d);
 }
 
 void ps_func(){
