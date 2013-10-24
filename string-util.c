@@ -203,7 +203,7 @@ static int common_printf(char *dest, const char *format, va_list param){
 	return pstr - dest;
 }
 
-int my_printf(const char *format, ...){
+int printf(const char *format, ...){
 	va_list arg_list;
 	int print_len;
 	char dest[PRINT_SIZE];

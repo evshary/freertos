@@ -68,14 +68,14 @@ void read_string(char *command){
 		ch[0] = receive_byte();
 		if(curr_char >= MAX_COMMAND_LEN || (ch[0] == '\r') || (ch[0] == '\n')){
 			command[curr_char] = '\0';
-			my_printf("\n");
+			printf("\n");
 			done = 1;
 		}else if(ch[0] == BACKSPACE){
 			curr_char--;
-			my_printf("\b \b\0");
+			printf("\b \b\0");
 		}else{
 			command[curr_char++] = ch[0];
-			my_printf("%c", ch[0]);
+			printf("%c", ch[0]);
 		}
 	}while(!done);
 
@@ -83,30 +83,30 @@ void read_string(char *command){
 
 void help_func(){
 	int i;
-	my_printf("This shell supports the commands following:\n");
+	printf("This shell supports the commands following:\n");
 	for(i = 0; i < MAX_COMMANDS; i++){
-		my_printf("%s: %s\n", commands[i].name, commands[i].description);
+		printf("%s: %s\n", commands[i].name, commands[i].description);
 	}
 }
 
 void hello_func(){
-	my_printf("Hello World\n");
+	printf("Hello World\n");
 	char dest[BUF_SIZE];
 	char *d = "abc";
 	sprintf(dest, "%d %d", 123, 10);
-	//my_printf("123123\n");
-	my_printf("%s", d);
+	//printf("123123\n");
+	printf("%s", d);
 }
 
 void ps_func(){
 	char buf[BUF_SIZE];
 	vTaskList(buf);
-	my_printf("%s\n", buf);
+	printf("%s\n", buf);
 }
 
 void system_func(){
 	char command[MAX_COMMAND_LEN];
-	my_printf("Please enter your command:");
+	printf("Please enter your command:");
 	read_string(command);
 }
 
@@ -127,7 +127,7 @@ void mmtest_func(){
                 p = foo.pointer;
                 lfsr = foo.lfsr;  // reset the PRNG to its earlier state
                 size = foo.size;
-                my_printf("free a block, size %d\n", size);
+                printf("free a block, size %d\n", size);
                 for (i = 0; i < size; i++) {
                     unsigned char u = p[i];
                     unsigned char v = (unsigned char) prng();
@@ -140,7 +140,7 @@ void mmtest_func(){
                 if ((prng() & 1) == 0) break;
             }
         } else {
-            my_printf("allocate a block, size %d\n", size);
+            printf("allocate a block, size %d\n", size);
             write_cb((struct slot){.pointer=p, .size=size, .lfsr=lfsr});
             for (i = 0; i < size; i++) {
                 p[i] = (unsigned char) prng();
@@ -153,7 +153,7 @@ void user_shell(){
 	char command[MAX_COMMAND_LEN];
 	int i;
 	while(1){
-		my_printf("evshary->");
+		printf("evshary->");
 		read_string(command);
 
 		for(i = 0; i < MAX_COMMANDS; i++){

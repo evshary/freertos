@@ -14,10 +14,13 @@ FREERTOS_SRC = $(CODEBASE)/libraries/FreeRTOS
 FREERTOS_INC = $(FREERTOS_SRC)/include/                                       
 FREERTOS_PORT_INC = $(FREERTOS_SRC)/portable/GCC/ARM_$(ARCH)/
 
+CFLAGS = -ffreestanding 
+
 all: main.bin
 
 main.bin: test-romfs.o main.c
 	$(CROSS_COMPILE)gcc \
+		$(CFLAGS) \
 		-I. -I$(FREERTOS_INC) -I$(FREERTOS_PORT_INC) \
 		-I$(CODEBASE)/libraries/CMSIS/CM3/CoreSupport \
 		-I$(CODEBASE)/libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x \

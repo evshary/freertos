@@ -14,10 +14,10 @@ typedef int portBASE_TYPE;
 //#define xTaskResumeAll()
 
 #ifdef ENABLE_DEBUG
-#define DBGPRINTF(x)          my_printf("%s %d: ", __FILE__, __LINE__); my_printf(x)
-#define DBGPRINTF1(x,a)       my_printf("%s %d: ", __FILE__, __LINE__); my_printf(x, a)
-#define DBGPRINTF2(x,a,b)     my_printf("%s %d: ", __FILE__, __LINE__); my_printf(x, a, b)
-#define DBGPRINTF3(x,a,b,c)   my_printf("%s %d: ", __FILE__, __LINE__); my_printf(x, a, b, c)
+#define DBGPRINTF(x)          printf("%s %d: ", __FILE__, __LINE__); printf(x)
+#define DBGPRINTF1(x,a)       printf("%s %d: ", __FILE__, __LINE__); printf(x, a)
+#define DBGPRINTF2(x,a,b)     printf("%s %d: ", __FILE__, __LINE__); printf(x, a, b)
+#define DBGPRINTF3(x,a,b,c)   printf("%s %d: ", __FILE__, __LINE__); printf(x, a, b, c)
 #else
 #define DBGPRINTF(x)
 #define DBGPRINTF1(x,a)
@@ -49,7 +49,7 @@ static unsigned int circbuf_size(void)
 static void write_cb(struct slot foo)
 {
     if (circbuf_size() == CIRCBUFSIZE - 1) {
-        my_printf(/*stderr,*/ "circular buffer overflow\n");
+        printf(/*stderr,*/ "circular buffer overflow\n");
         return;
 		//exit(1);
     }
