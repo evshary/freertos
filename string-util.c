@@ -8,6 +8,8 @@
 #define HIGHS (ONES * (UCHAR_MAX/2+1))
 #define HASZERO(x) ((x)-ONES & ~(x) & HIGHS)
 
+#define PRINT_SIZE 50
+
 #define SS (sizeof(size_t))
 void *memset(void *dest, int c, size_t n)
 {
@@ -101,7 +103,7 @@ int strcat(char *str1, char *str2){
 	return 1;
 }
 
-void print(char * print_str){
+void print(char *print_str){
 	fio_write(1, print_str, strlen(print_str));
 	if(print_str[strlen(print_str)-1] == '\n')
 	{
@@ -149,114 +151,44 @@ int num_to_string(unsigned int num, char*num_str, int base, int sign_or_not){
 	return 1;
 }
 
-int my_printf(const char *format, ...){
-	va_list argv_list;
-	char print_ch;
-	char buf[32];
-	va_start(argv_list, format);
-	print_ch = *format;
-	typedef union {
-		char arg_char;
-		int arg_int;
-		char *arg_string;
-	} argvs;
-	argvs args;
-	while(print_ch != '\0'){
-		if(print_ch == '%'){
-			format++;
-			print_ch = *format;
-			switch(print_ch){
-				case 'c':
-					args.arg_int = va_arg(argv_list, int);
-					buf[0] = (char)args.arg_int;
-					buf[1] = '\0';
-					print(buf);
-					break;
-				case 'd':
-					args.arg_int = va_arg(argv_list, int);
-					num_to_string(args.arg_int, buf, 10, 1);
-					print(buf);
-					break;
-				case 's':
-					args.arg_string = va_arg(argv_list, char*);
-					print(args.arg_string);
-					break;
-				case 'p':
-					args.arg_int = va_arg(argv_list, int);
-					if(args.arg_int == NULL){
-						print("<nil>");
-					}else{
-						num_to_string(args.arg_int, buf, 16, 1);
-						print(buf);
-					}
-					break;
-				default:
-					buf[0] = print_ch;
-					buf[1] ='\0';
-					print(buf);
-			}
-		}else{
-			buf[0] = print_ch;
-			buf[1] ='\0';
-			print(buf);
-		}
-
-		format++;
-		print_ch = *format;
-	}
-
-	va_end(argv_list);
-}
-
-int sprintf(char *dest, const char *format, ...){
-	va_list argv_list;
+static int common_printf(char *dest, const char *format, va_list param){
 	char *pstr = dest;
-	va_start(argv_list, format);
-	typedef union {
-		unsigned arg_unsigned;
-		int arg_int;
-		char *arg_string;
-	} argvs;
-	argvs args;
+	int ptr;
 	while(*format != '\0'){
 		if(*format == '%'){
 			format++;
 			switch(*format){
 				case 'C':
 				case 'c':
-					args.arg_int = va_arg(argv_list, int);
-					*pstr++ = (char)args.arg_int;
+					*pstr++ = (char)va_arg(param, int);
 					break;
 				case 'D':
 				case 'd':
-					args.arg_int = va_arg(argv_list, int);
-					num_to_string(args.arg_int, pstr, 10, 1);
+					num_to_string(va_arg(param, int), pstr, 10, 1);
 					pstr += strlen(pstr);
 					break;
 				case 'S':
 				case 's':
-					args.arg_string = va_arg(argv_list, char*);
-					strcpy(pstr, args.arg_string);
+					strcpy(pstr, va_arg(param, char*));
 					pstr += strlen(pstr);
 					break;
 				case 'p':
-					args.arg_int = va_arg(argv_list, int);
-					if(args.arg_int == NULL){
-						strcpy(pstr, args.arg_int);
+					ptr = va_arg(param, int);
+					if(ptr == NULL){
+						strcpy(pstr, "<nil>");
 						pstr += strlen(pstr);
 					}else{
-						num_to_string(args.arg_int, pstr, 16, 1);
+						num_to_string(ptr, pstr, 16, 1);
 						pstr += strlen(pstr);
 					}
 					break;
 				case 'X':
 				case 'x':
-					args.arg_int = va_arg(argv_list, int);
-					num_to_string(args.arg_int, pstr, 16, 1);
+					num_to_string(va_arg(param, int), pstr, 16, 1);
 					pstr += strlen(pstr);
+					break;
 				case 'u':
-					args.arg_unsigned = va_arg(argv_list, unsigned);
-					num_to_string(args.arg_unsigned, pstr, 10, 0);
+					num_to_string(va_arg(param, unsigned), pstr, 10, 0);
 					pstr += strlen(pstr);
 					break;
 				default:
@@ -268,6 +200,25 @@ int sprintf(char *dest, const char *format, ...){
 		format++;
 	}
 	*pstr = '\0';
-	va_end(argv_list);
-	return dest - pstr;
+	return pstr - dest;
+}
+
+int my_printf(const char *format, ...){
+	va_list arg_list;
+	int print_len;
+	char dest[PRINT_SIZE];
+	va_start(arg_list, format);
+	print_len = common_printf(dest, format, arg_list);
+	va_end(arg_list);
+	print(dest);
+	return print_len;
+}
+
+int sprintf(char *dest, const char *format, ...){
+	va_list arg_list;
+	int print_len;
+	va_start(arg_list, format);
+	print_len = common_printf(dest, format, arg_list);
+	va_end(arg_list);
+	return print_len;
 }

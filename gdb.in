@@ -1,0 +1,8 @@
+file main.elf
+target remote :3333
+b string-util.c:158
+commands 1
+p format
+p *format
+p dest
+end

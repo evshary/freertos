@@ -6,6 +6,7 @@
 
 #define MAX_COMMAND_LEN 30
 #define BACKSPACE 0x7f
+#define BUF_SIZE 50
 
 void hello_func();
 void help_func();
@@ -90,10 +91,15 @@ void help_func(){
 
 void hello_func(){
 	my_printf("Hello World\n");
+	char dest[BUF_SIZE];
+	char *d = "abc";
+	sprintf(dest, "%d %d", 123, 10);
+	//my_printf("123123\n");
+	my_printf("%s", d);
 }
 
 void ps_func(){
-	char buf[1024];
+	char buf[BUF_SIZE];
 	vTaskList(buf);
 	my_printf("%s\n", buf);
 }
