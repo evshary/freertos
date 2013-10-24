@@ -58,6 +58,8 @@ main.bin: test-romfs.o main.c
 		\
 		shell.c\
 		\
+		mmtest.c \
+		\
 		main.c
 	$(CROSS_COMPILE)ld -Tmain.ld -nostartfiles -o main.elf \
 		core_cm3.o \
@@ -80,6 +82,8 @@ main.bin: test-romfs.o main.c
 		string-util.o \
 		\
 		shell.o \
+		\
+		mmtest.o \
 		\
 		main.o
 	$(CROSS_COMPILE)objcopy -Obinary main.elf main.bin
