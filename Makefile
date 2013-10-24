@@ -18,7 +18,22 @@ CFLAGS = -ffreestanding
 
 all: main.bin
 
-main.bin: test-romfs.o main.c
+RELAT_FILE = stm32_p103.c \
+			romfs.c \
+			hash-djb2.c \
+			filesystem.c \
+			fio.c \
+			\
+			osdebug.c \
+			string-util.c \
+			\
+			shell.c\
+			\
+			mmtest.c \
+			\
+			main.c
+
+main.bin: test-romfs.o $(RELAT_FILE)
 	$(CROSS_COMPILE)gcc \
 		$(CFLAGS) \
 		-I. -I$(FREERTOS_INC) -I$(FREERTOS_PORT_INC) \
