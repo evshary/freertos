@@ -16,6 +16,7 @@ void system_func();
 void mmtest_func();
 
 extern char receive_byte();
+extern char non_block_receive_byte();
 
 enum {
 	PS = 0,
@@ -68,21 +69,7 @@ void read_string(char *command){
 	char esc_or_not = 0;
 
 	do{
-		ch[0] = receive_byte();
-		if(esc_or_not == 1 && ch[0] == '['){
-			esc_or_not = 0;
-			ch[0] = receive_byte();
-			if(ch[0] == 'C'){
-				if(curr_len > curr_char){
-					printf("%c",command[curr_char]);
-					curr_char++;
-				}
-			}else if(ch[0] == 'D'){
-				curr_char--;
-				printf("\b");
-			}
-			continue;
-		}
+		ch[0] = non_block_receive_byte();
 		if(curr_char >= MAX_COMMAND_LEN || (ch[0] == '\r') || (ch[0] == '\n')){
 			command[curr_char] = '\0';
 			printf("\n");
@@ -94,7 +81,20 @@ void read_string(char *command){
 				printf("\b \b");
 			}
 		}else if(ch[0] == ESC){
-			esc_or_not = 1;
+			ch[0] = non_block_receive_byte();
+			if(ch[0] == '['){
+				ch[0] = non_block_receive_byte();
+				if(ch[0] == 'C'){
+				if(curr_len > curr_char){
+					printf("%c",command[curr_char]);
+					curr_char++;
+				}
+				}else if(ch[0] == 'D'){
+					curr_char--;
+					printf("\b");
+				}
+			continue;
+		}
 		}else{
 			command[curr_char++] = ch[0];
 			curr_len++;

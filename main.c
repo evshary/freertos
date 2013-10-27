@@ -15,6 +15,8 @@
 /*Shell includes*/
 #include "shell.h"
 
+#include "projdefs.h"
+
 extern const char _sromfs;
 
 static void setup_hardware();
@@ -89,6 +91,15 @@ char receive_byte(){
 	while (!xQueueReceive(serial_rx_queue, &msg, portMAX_DELAY));
 
 	return msg.ch; 
+}
+
+char non_block_receive_byte(){
+	serial_ch_msg msg;
+
+	int ret = xQueueReceive(serial_rx_queue, &msg, portMAX_DELAY);
+	if(ret == pdTRUE){
+		return msg.ch;
+	}
 }
 
 void read_romfs_task(void *pvParameters)
