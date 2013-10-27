@@ -63,6 +63,7 @@ shell_cmd commands[] = {
 void read_string(char *command){
 	char ch[2] = {0};
 	int curr_char = 0;
+	int curr_len = 0;
 	char done = 0;
 	char esc_or_not = 0;
 
@@ -71,6 +72,15 @@ void read_string(char *command){
 		if(esc_or_not == 1 && ch[0] == '['){
 			esc_or_not = 0;
 			ch[0] = receive_byte();
+			if(ch[0] == 'C'){
+				if(curr_len > curr_char){
+					printf("%c",command[curr_char]);
+					curr_char++;
+				}
+			}else if(ch[0] == 'D'){
+				curr_char--;
+				printf("\b");
+			}
 			continue;
 		}
 		if(curr_char >= MAX_COMMAND_LEN || (ch[0] == '\r') || (ch[0] == '\n')){
@@ -78,12 +88,16 @@ void read_string(char *command){
 			printf("\n");
 			done = 1;
 		}else if(ch[0] == BACKSPACE){
-			curr_char--;
-			printf("\b \b\0");
+			if(curr_char > 0){
+				curr_char--;
+				curr_len--;
+				printf("\b \b");
+			}
 		}else if(ch[0] == ESC){
 			esc_or_not = 1;
 		}else{
 			command[curr_char++] = ch[0];
+			curr_len++;
 			printf("%c", ch[0]);
 		}
 	}while(!done);
