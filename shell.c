@@ -6,6 +6,7 @@
 
 #define MAX_COMMAND_LEN 30
 #define BACKSPACE 0x7f
+#define ESC 0x1b
 #define BUF_SIZE 50
 
 void hello_func();
@@ -62,10 +63,16 @@ shell_cmd commands[] = {
 void read_string(char *command){
 	char ch[2] = {0};
 	int curr_char = 0;
-	int done = 0;
-	
+	char done = 0;
+	char esc_or_not = 0;
+
 	do{
 		ch[0] = receive_byte();
+		if(esc_or_not == 1 && ch[0] == '['){
+			esc_or_not = 0;
+			ch[0] = receive_byte();
+			continue;
+		}
 		if(curr_char >= MAX_COMMAND_LEN || (ch[0] == '\r') || (ch[0] == '\n')){
 			command[curr_char] = '\0';
 			printf("\n");
@@ -73,6 +80,8 @@ void read_string(char *command){
 		}else if(ch[0] == BACKSPACE){
 			curr_char--;
 			printf("\b \b\0");
+		}else if(ch[0] == ESC){
+			esc_or_not = 1;
 		}else{
 			command[curr_char++] = ch[0];
 			printf("%c", ch[0]);
