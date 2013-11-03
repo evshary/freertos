@@ -140,7 +140,7 @@ void mmtest_func(){
 }
 
 void cat_func(int argc, char *argv[]){
-	char bu[BUF_SIZE];
+	char buf[BUF_SIZE];
 	int fd;
 	size_t count;
 

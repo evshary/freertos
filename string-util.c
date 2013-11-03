@@ -103,6 +103,26 @@ int strcat(char *str1, char *str2){
 	return 1;
 }
 
+char *strtok(char *split_str, const char delim){
+	static char *current_ptr;
+	char *current_token;
+	int i;
+	if(current_ptr[0] == '\0')return NULL;
+	if(split_str == NULL){
+		current_ptr++;
+	}else{
+		current_ptr = split_str;
+	}
+	current_token = current_ptr;
+	for(i = 0;;i++){
+		if( current_ptr[i] == delim || current_ptr[i] == '\0'){
+			current_ptr[i] = '\0';
+			break;
+		}
+	}
+	return current_token;
+}
+
 void print(char *print_str){
 	fio_write(1, print_str, strlen(print_str));
 	if(print_str[strlen(print_str)-1] == '\n')
