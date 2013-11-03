@@ -8,13 +8,14 @@
 #define BACKSPACE 0x7f
 #define ESC 0x1b
 #define BUF_SIZE 50
+#define MAX_ARGV 10
 
-void hello_func();
-void help_func();
-void ps_func();
-void system_func();
-void mmtest_func();
-void cat_func();
+void hello_func(int argc, char *argv[]);
+void help_func(int argc, char *argv[]);
+void ps_func(int argc, char *argv[]);
+void system_func(int argc, char *argv[]);
+void mmtest_func(int argc, char *argv[]);
+void cat_func(int argc, char *argv[]);
 
 extern char receive_byte();
 extern char non_block_receive_byte();
@@ -32,7 +33,7 @@ enum {
 typedef struct{
 	char *name;
 	char *description;
-	void (*function)(void);
+	void (*function)(int, char**); 
 } shell_cmd;
 
 shell_cmd commands[] = {
@@ -111,7 +112,7 @@ void read_string(char *command){
 
 }
 
-void help_func(){
+void help_func(int argc, char *argv[]){
 	int i;
 	printf("This shell supports the commands following:\n");
 	for(i = 0; i < MAX_COMMANDS; i++){
@@ -119,23 +120,23 @@ void help_func(){
 	}
 }
 
-void hello_func(){
+void hello_func(int argc, char *argv[]){
 	printf("Hello World\n");
 }
 
-void ps_func(){
+void ps_func(int argc, char *argv[]){
 	char buf[BUF_SIZE];
 	vTaskList(buf);
 	printf("%s\n", buf);
 }
 
-void system_func(){
+void system_func(int argc, char *argv[]){
 	char command[MAX_COMMAND_LEN];
 	printf("Please enter your command:");
 	read_string(command);
 }
 
-void mmtest_func(){
+void mmtest_func(int argc, char *argv[]){
 	mmtest();
 }
 
@@ -158,13 +159,20 @@ void cat_func(int argc, char *argv[]){
 void user_shell(){
 	char command[MAX_COMMAND_LEN];
 	int i;
+	char *argv[MAX_ARGV] = {NULL};
+	int argc = 0;
 	while(1){
 		printf("evshary->");
 		read_string(command);
-
+		argv[argc++] = strtok(command, ' ');
+		while(1){
+			argv[argc] = strtok(NULL, ' ');
+			if(argv[argc] == NULL)break;
+			argc++;
+		}
 		for(i = 0; i < MAX_COMMANDS; i++){
-			if(!strcmp(commands[i].name, command)){
-				commands[i].function();
+			if(!strcmp(commands[i].name, argv[0])){
+				commands[i].function(argc, argv);
 				break;
 			}
 		}

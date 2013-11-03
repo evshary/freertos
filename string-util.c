@@ -103,20 +103,27 @@ int strcat(char *str1, char *str2){
 	return 1;
 }
 
+int printf(const char *format, ...);
+
 char *strtok(char *split_str, const char delim){
 	static char *current_ptr;
+	static char end_flag;
 	char *current_token;
 	int i;
-	if(current_ptr[0] == '\0')return NULL;
 	if(split_str == NULL){
+		if(end_flag == 1)return NULL;
 		current_ptr++;
 	}else{
 		current_ptr = split_str;
+		end_flag = 0;
 	}
 	current_token = current_ptr;
-	for(i = 0;;i++){
-		if( current_ptr[i] == delim || current_ptr[i] == '\0'){
-			current_ptr[i] = '\0';
+	for(;;current_ptr++){
+		if( current_ptr[0] == delim){
+			current_ptr[0] = '\0';
+			break;
+		}else if(current_ptr[0] == '\0'){
+			end_flag = 1;
 			break;
 		}
 	}
