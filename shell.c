@@ -14,6 +14,7 @@ void help_func();
 void ps_func();
 void system_func();
 void mmtest_func();
+void cat_func();
 
 extern char receive_byte();
 extern char non_block_receive_byte();
@@ -24,6 +25,7 @@ enum {
 	HELLO,
 	SYSTEM,
 	MMTEST,
+	CAT,
 	MAX_COMMANDS
 };
 
@@ -58,6 +60,11 @@ shell_cmd commands[] = {
 		.name = "mmtest",
 		.description = "test memory allocation",
 		.function = mmtest_func
+	},
+	{
+		.name = "cat",
+		.description = "show the content of the file",
+		.function = cat_func
 	}
 };
 
@@ -130,6 +137,22 @@ void system_func(){
 
 void mmtest_func(){
 	mmtest();
+}
+
+void cat_func(int argc, char *argv[]){
+	char bu[BUF_SIZE];
+	int fd;
+	size_t count;
+
+	fd = fs_open(argv[1], 0, O_RDONLY);
+	if(fd < 0){
+		printf("No such file or directory\n");
+	}else{
+		do{
+			count = fio_read(fd, buf, sizeof(buf));
+			printf("%s", buf);
+		}while(count);
+	}
 }
 
 void user_shell(){
