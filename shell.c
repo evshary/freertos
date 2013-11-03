@@ -16,6 +16,7 @@ void ps_func(int argc, char *argv[]);
 void system_func(int argc, char *argv[]);
 void mmtest_func(int argc, char *argv[]);
 void cat_func(int argc, char *argv[]);
+void echo_func(int argc, char *argv[]);
 
 extern char receive_byte();
 extern char non_block_receive_byte();
@@ -27,6 +28,7 @@ enum {
 	SYSTEM,
 	MMTEST,
 	CAT,
+	ECHO,
 	MAX_COMMANDS
 };
 
@@ -66,6 +68,11 @@ shell_cmd commands[] = {
 		.name = "cat",
 		.description = "show the content of the file",
 		.function = cat_func
+	},
+	{
+		.name = "echo",
+		.description = "print the string again",
+		.function = echo_func
 	}
 };
 
@@ -154,6 +161,10 @@ void cat_func(int argc, char *argv[]){
 			printf("%s", buf);
 		}while(count);
 	}
+}
+
+void echo_func(int argc, char *argv[]){
+	printf("%s\n", argv[1]);
 }
 
 void user_shell(){
